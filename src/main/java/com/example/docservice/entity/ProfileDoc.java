@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "doctors")
-public class Account {
+public class ProfileDoc {
     // класс модель - иммитация аккаунта пользователя БД
 
     @Id
