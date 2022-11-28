@@ -1,4 +1,13 @@
 package com.example.docservice.repository;
 
-public interface AccountRepository {
+import com.example.docservice.entity.Account;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface AccountRepository extends JpaRepository<Account, UUID>{
+    @Query(value = "SELECT * FROM doctors", nativeQuery = true)
+    List<Account> findAllDoctors();
 }
