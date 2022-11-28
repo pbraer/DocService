@@ -3,11 +3,20 @@ package com.example.docservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import rest.dto.StudentDto;
-import rest.service.HtmlPageService;
 
-import javax.servlet.http.HttpServletResponse;
+import com.example.docservice.dto.AccountDto;
+import com.example.docservice.dto.Login;
+
+import com.example.docservice.entity.Account;
+
+import com.example.docservice.repository.AccountRepository;
+
+import com.example.docservice.service.ServicePage;
+
+
+
+
+
 
 @RestController
 public class MainController {
