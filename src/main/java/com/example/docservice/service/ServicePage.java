@@ -2,7 +2,7 @@ package com.example.docservice.service;
 
 import com.example.docservice.dto.Login;
 import com.example.docservice.entity.ProfileDoc;
-
+/*
 @org.springframework.stereotype.Service
 public class ServicePage {
 
@@ -23,3 +23,5 @@ public class ServicePage {
         System.out.println("");
     }
 }
+
+ */
