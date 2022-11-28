@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.docservice.dto.ProfileDocDto;
 import com.example.docservice.dto.Login;
 
-import com.example.docservice.service.ServicePage;
+//import com.example.docservice.service.ServicePage;
 
 @RestController
 public class MainController {
@@ -35,7 +35,7 @@ public class MainController {
         model.addAttribute("title", "Расписание"); // передаем название странички
         return "schedule";
     }
-
+/*
     // Обработка форм
     @Autowired(required = false)
     private ServicePage servicePage;
@@ -55,5 +55,5 @@ public class MainController {
         servicePage.makeOrder(client);
     }
 
-
+*/
 }
