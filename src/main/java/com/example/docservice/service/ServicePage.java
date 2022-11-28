@@ -1,25 +1,25 @@
 package com.example.docservice.service;
 
 import com.example.docservice.dto.Login;
-import com.example.docservice.entity.Account;
+import com.example.docservice.entity.ProfileDoc;
 
 @org.springframework.stereotype.Service
 public class ServicePage {
 
-//    private final AccountRepository accountRepository;
+//    private final DocRepository accountRepository;
 //
-//    public ServicePage(AccountRepository accountRepository) {
+//    public ServicePage(DocRepository accountRepository) {
 //        this.accountRepository = accountRepository;
 //    }
 
     public void createUser(Login login) {
-        Account account = new Account();
-        account.setEmail(login.getLogin());
-        account.setPassword(login.getPass());
+        ProfileDoc profileDoc = new ProfileDoc();
+        profileDoc.setEmail(login.getLogin());
+        profileDoc.setPassword(login.getPass());
 
-//        accountRepository.save(account);
+//        accountRepository.save(profileDoc);
 //
-//        List<Account> lisr = accountRepository.findAllDoctors();
+//        List<ProfileDoc> lisr = accountRepository.findAllDoctors();
         System.out.println("");
     }
 }
