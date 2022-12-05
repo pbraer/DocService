@@ -1,4 +1,4 @@
-package com.example.docservice.entity;
+package persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,13 +13,14 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "doctors")
-public class ProfileDoc {
+public class Doctor {
     // класс модель - иммитация аккаунта пользователя БД
 
     @Id
     private UUID id; // ключ - уникальный id
     @Column(name = "email")
     private String email;
+
     private String password;
     private String firstname;
     private String lastname;

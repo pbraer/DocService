@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface DocRepository extends JpaRepository<ProfileDoc, UUID>{
+public interface DoctorRepository extends JpaRepository<Doctor, UUID>{
     @Query(value = "SELECT * FROM doctors", nativeQuery = true)
-    List<ProfileDoc> findAllDoctors();
-    List<ProfileDoc> findByEmail(String email);
-
-
-
+    List<Doctor> findAllDoctors();
 }
