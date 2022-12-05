@@ -11,4 +11,8 @@ import java.util.UUID;
 public interface DocRepository extends JpaRepository<ProfileDoc, UUID>{
     @Query(value = "SELECT * FROM doctors", nativeQuery = true)
     List<ProfileDoc> findAllDoctors();
+    List<ProfileDoc> findByEmail(String email);
+
+
+
 }

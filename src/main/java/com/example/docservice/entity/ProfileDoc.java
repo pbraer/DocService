@@ -33,5 +33,7 @@ public class ProfileDoc {
     private Boolean friday = false;
     private String timeFrom = null;
     private String timeTo = null;
+
+
 }
 
