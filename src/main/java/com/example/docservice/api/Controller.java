@@ -1,21 +1,19 @@
 package com.example.docservice.api;
 
 import com.example.docservice.dto.Login;
-import com.example.docservice.service.ServicePage;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-//import com.example.docservice.service.ServicePage;
+import com.example.docservice.service.DocServicePage;
+import com.example.docservice.dto.ProfileDocDto;
 
 @RestController
 public class Controller implements Api {
+    @Autowired
+    private DocServicePage docServicePage;
     @Override
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
@@ -45,38 +43,21 @@ public class Controller implements Api {
         return modelAndView;
     }
     @GetMapping("/")
-    public RedirectView redirectToWelcomePage() {
+    public RedirectView redirectToLoginPage() {
         return new RedirectView("/sign");
     }
     @PostMapping("/sign") // авторизация
     public void login(Login login){
-        ServicePage.createUser(login);
+        com.example.docservice.service.DocServicePage.createUser(login);
         System.out.print("");
     }
-
-
-
-
-
-
-    }
-
-/*
-    // Обработка форм
-    @Autowired(required = false)
-    private ServicePage servicePage;
-
-
-
 
     @PostMapping("/docinfo") // информация о враче
     public void changeDocInfo(ProfileDocDto docAccount){
     }
 
     @PostMapping("/clientReg") // информация о враче
-    public void clientReg(ClientReg client){
-        servicePage.makeOrder(client);
-
-
-*/
-
+    public void clientReg(ClientReg client) {
+        docServicePage.makeOrder(client);
+    }
+    }
