@@ -1,21 +1,26 @@
 package com.example.docservice.api;
 
+import com.example.docservice.dto.Login;
+import com.example.docservice.service.ServicePage;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.UUID;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 //import com.example.docservice.service.ServicePage;
 
 @RestController
 public class Controller implements Api {
     @Override
-    public ModelAndView singin() {
+    public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("signin"); // указываю какую страницу вернуть
+        modelAndView.setViewName("sign"); // указываю какую страницу вернуть
+        modelAndView.getModel().put("message", "Вход в систему");
         return modelAndView;
     }
 
@@ -40,10 +45,18 @@ public class Controller implements Api {
         return modelAndView;
     }
     @GetMapping("/")
-    public ModelAndView singin(ModelAndView model) {
-        model.setViewName("Вход");
-        return model;
+    public RedirectView redirectToWelcomePage() {
+        return new RedirectView("/sign");
     }
+    @PostMapping("/sign") // авторизация
+    public void login(Login login){
+        ServicePage.createUser(login);
+        System.out.print("");
+    }
+
+
+
+
 
 
     }
@@ -53,11 +66,8 @@ public class Controller implements Api {
     @Autowired(required = false)
     private ServicePage servicePage;
 
-    @PostMapping("/sign") // авторизация
-    public void login(Login login){
-        servicePage.createUser(login);
-        System.out.printf("");
-    }
+
+
 
     @PostMapping("/docinfo") // информация о враче
     public void changeDocInfo(ProfileDocDto docAccount){
@@ -66,7 +76,7 @@ public class Controller implements Api {
     @PostMapping("/clientReg") // информация о враче
     public void clientReg(ClientReg client){
         servicePage.makeOrder(client);
-    }
+
 
 */
 

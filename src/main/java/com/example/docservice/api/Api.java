@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 public interface Api {
-    @GetMapping(value = ApiUrls.SINGIN) ModelAndView singin();
+    @GetMapping(value = ApiUrls.SIGN) ModelAndView sign();
 
     @GetMapping(value = ApiUrls.PROFILE) ModelAndView profile();
 
