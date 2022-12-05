@@ -5,14 +5,13 @@ import com.example.docservice.entity.ProfileDoc;
 
 @org.springframework.stereotype.Service
 public class ServicePage {
-
 //    private final DocRepository accountRepository;
 //
 //    public ServicePage(DocRepository accountRepository) {
 //        this.accountRepository = accountRepository;
 //    }
 
-    public void createUser(Login login) {
+    public static void createUser(Login login) {
         ProfileDoc profileDoc = new ProfileDoc();
         profileDoc.setEmail(login.getLogin());
         profileDoc.setPassword(login.getPass());
@@ -23,3 +22,4 @@ public class ServicePage {
         System.out.println("");
     }
 }
+
