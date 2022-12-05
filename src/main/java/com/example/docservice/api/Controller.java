@@ -50,7 +50,7 @@ public class Controller implements Api {
     }
     @PostMapping("/sign") // авторизация
     public void login(Login login){
-        ServicePage.createUser(login);
+        //ServicePage.createUser(login);
         System.out.print("");
     }
 
