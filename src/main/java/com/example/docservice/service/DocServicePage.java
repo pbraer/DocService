@@ -21,8 +21,8 @@ public class DocServicePage implements UserDetailsService {
     private EntityManager em;
     @Autowired
     private DoctorRepository docRepository;
-    @Autowired
-    private BCryptPasswordEncoder CryptPasswordEncoder;
+    //@Autowired
+    //private BCryptPasswordEncoder CryptPasswordEncoder;
 
 
 
@@ -38,9 +38,7 @@ public class DocServicePage implements UserDetailsService {
         Doctor profileDoc = new Doctor();
         profileDoc.setEmail(login.getLogin());
         profileDoc.setPassword(login.getPass());
-
 //        accountRepository.save(profileDoc);
-//
 //        List<ProfileDoc> lisr = accountRepository.findAllDoctors();
         System.out.println("");
     }

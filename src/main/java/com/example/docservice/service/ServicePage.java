@@ -19,7 +19,7 @@ public class ServicePage {
 
 
     public List<DoctorsDto> getAllDoctors() {
-        List<Doctor> doctors = DoctorRepository.findAllDoctors();
+        List<Doctor> doctors = doctorRepository.findAllDoctors();
         List<DoctorsDto> resultList = new ArrayList<>();
         for (Doctor doctor : doctors) {
             DoctorsDto doctorsDto = new DoctorsDto();
