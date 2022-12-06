@@ -2,14 +2,18 @@ package com.example.docservice.api;
 
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
+import com.example.docservice.service.ServicePage;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-import com.example.docservice.service.DocServicePage;
-import com.example.docservice.dto.DoctorsDto;
+//import com.example.docservice.service.ServicePage;
 
 @RestController
 public class Controller implements Api {
@@ -49,16 +53,33 @@ public class Controller implements Api {
     }
     @PostMapping("/sign") // авторизация
     public void login(Login login){
-        com.example.docservice.service.DocServicePage.createUser(login);
+        //ServicePage.createUser(login);
         System.out.print("");
     }
 
+
+
+
+
+
+    }
+
+/*
+    // Обработка форм
+    @Autowired(required = false)
+    private ServicePage servicePage;
+
+
+
+
     @PostMapping("/docinfo") // информация о враче
-    public void changeDocInfo(DoctorsDto docAccount){
+    public void changeDocInfo(ProfileDocDto docAccount){
     }
 
     @PostMapping("/clientReg") // информация о враче
-    public void clientReg(ClientDto client) {
-        docServicePage.makeOrder(client);
-    }
-}
+    public void clientReg(ClientReg client){
+        servicePage.makeOrder(client);
+
+
+*/
+
