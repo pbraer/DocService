@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "m_role")
+@Table(name = "roletable")
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
