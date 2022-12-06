@@ -1,6 +1,5 @@
 package com.example.docservice.api;
 
-import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
 import com.example.docservice.service.ServicePage;
 
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class Controller implements Api {
-    @Autowired
-    private DocServicePage docServicePage;
     @Override
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
@@ -48,7 +45,7 @@ public class Controller implements Api {
         return modelAndView;
     }
     @GetMapping("/")
-    public RedirectView redirectToLoginPage() {
+    public RedirectView redirectToWelcomePage() {
         return new RedirectView("/sign");
     }
     @PostMapping("/sign") // авторизация
