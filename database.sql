@@ -3,6 +3,13 @@ USE MedServ;
 SET GLOBAL time_zone = '+7:00';
 
 CREATE TABLE roletable (
+                           id INT PRIMARY KEY AUTO_INCREMENT,
+                           pass TEXT,
+                           email TEXT,
+                           roleof BOOLEAN
+);
+
+CREATE TABLE roletable (
     id INT PRIMARY KEY AUTO_INCREMENT,
     pass TEXT,
     email TEXT,

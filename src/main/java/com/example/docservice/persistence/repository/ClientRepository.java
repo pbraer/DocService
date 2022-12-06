@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, UUID>{
-    @Query(value = "SELECT * FROM clients", nativeQuery = true)
+    @Query(value = "SELECT * FROM patientsappoitm", nativeQuery = true)
     List<Client> findAllClients();
 }
