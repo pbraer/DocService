@@ -1,4 +1,4 @@
-package persistence.entity;
+package com.example.docservice.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

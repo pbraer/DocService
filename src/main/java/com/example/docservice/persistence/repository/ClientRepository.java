@@ -1,9 +1,9 @@
-package persistence.repository;
+package com.example.docservice.persistence.repository;
 
+import com.example.docservice.persistence.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import persistence.entity.Client;
 
 import java.util.List;
 import java.util.UUID;

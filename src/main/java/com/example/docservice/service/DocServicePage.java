@@ -8,13 +8,10 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 import com.example.docservice.dto.Login;
-import persistence.entity.Doctor;
-import persistence.repository.DoctorRepository;
+import com.example.docservice.persistence.entity.Doctor;
+import com.example.docservice.persistence.repository.DoctorRepository;
 
 
 
