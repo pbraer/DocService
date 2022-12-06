@@ -1,5 +1,6 @@
 package com.example.docservice.api;
 
+import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
 
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.beans.factory.annotation.*;
 
 import com.example.docservice.service.DocServicePage;
-import com.example.docservice.dto.ProfileDocDto;
+import com.example.docservice.dto.DoctorsDto;
 
 @RestController
 public class Controller implements Api {
@@ -53,11 +54,11 @@ public class Controller implements Api {
     }
 
     @PostMapping("/docinfo") // информация о враче
-    public void changeDocInfo(ProfileDocDto docAccount){
+    public void changeDocInfo(DoctorsDto docAccount){
     }
 
     @PostMapping("/clientReg") // информация о враче
-    public void clientReg(ClientReg client) {
+    public void clientReg(ClientDto client) {
         docServicePage.makeOrder(client);
     }
-    }
+}

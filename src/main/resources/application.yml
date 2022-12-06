@@ -5,17 +5,11 @@ spring:
     password: 12345
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    driver-class-name: org.postgresql.Driver
+  thymeleaf:
+    cache: false
   sql:
     init:
       mode: never
-  thymeleaf:
-    cache: false
-  jpa:
-    show-sql: true
-    generate-ddl: false
-    hibernate:
-      ddl-auto: update
+
 server:
   port: 8080
-
-

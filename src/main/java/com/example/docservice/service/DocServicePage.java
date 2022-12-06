@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.docservice.dto.Login;
-import com.example.docservice.entity.ProfileDoc;
-import com.example.docservice.repository.DocRepository;
+import persistence.entity.Doctor;
+import persistence.repository.DoctorRepository;
 
 
 
@@ -23,7 +23,7 @@ public class DocServicePage implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
-    private DocRepository docRepository;
+    private DoctorRepository docRepository;
     @Autowired
     private BCryptPasswordEncoder CryptPasswordEncoder;
 
@@ -38,7 +38,7 @@ public class DocServicePage implements UserDetailsService {
 //    }
 
     public static void createUser(Login login) {
-        ProfileDoc profileDoc = new ProfileDoc();
+        Doctor profileDoc = new Doctor();
         profileDoc.setEmail(login.getLogin());
         profileDoc.setPassword(login.getPass());
 
@@ -49,7 +49,7 @@ public class DocServicePage implements UserDetailsService {
     }
     public static void (String email) //throws UsernameNotFoundException
     {
-        ProfileDoc doc = DocRepository.findByEmail(email);
+        Doctor doc = DoctorRepository.findByEmail(email);
 
         if (doc == null) {
             //throw new UsernameNotFoundException("User not found");
