@@ -1,11 +1,9 @@
 package com.example.docservice.service;
 
 import com.example.docservice.dto.DoctorsDto;
-import com.example.docservice.dto.Login;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import persistence.entity.Doctor;
-import persistence.repository.DoctorRepository;
+import com.example.docservice.persistence.entity.Doctor;
+import com.example.docservice.persistence.repository.DoctorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class ServicePage {
 
 
     public List<DoctorsDto> getAllDoctors() {
-        List<Doctor> doctors = DoctorRepository.findAllDoctors();
+        List<Doctor> doctors = doctorRepository.findAllDoctors();
         List<DoctorsDto> resultList = new ArrayList<>();
         for (Doctor doctor : doctors) {
             DoctorsDto doctorsDto = new DoctorsDto();

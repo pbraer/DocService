@@ -28,10 +28,10 @@ public class ClientService {
 
         clientRepository.save(student);
 
-        return getAllStudents();
+        return getAllClient();
     }
 
-    public List<ClientDto> getAllStudents() {
+    public List<ClientDto> getAllClient() {
         List<Client> clients = clientRepository.findAllClients();
         List<ClientDto> resultList = new ArrayList<>();
         for (Client client : clients) {
