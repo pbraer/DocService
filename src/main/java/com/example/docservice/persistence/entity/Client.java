@@ -18,10 +18,13 @@ public class Client {
     private UUID id;
 
     @Column(name = "email")
+    private String pass;
     private String email;
-
-    private String spec;
-    private String doctor;
+    private String qualif;
+    private String firstname;
+    private String lastname;
+    private String middlename;
     private String date;
     private String time;
+
 }
