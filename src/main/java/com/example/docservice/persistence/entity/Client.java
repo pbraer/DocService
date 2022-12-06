@@ -1,4 +1,4 @@
-package persistence.entity;
+package com.example.docservice.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "Client")
+@Table(name = "patientsappoitm")
 public class Client {
     @Id
     private UUID id;
