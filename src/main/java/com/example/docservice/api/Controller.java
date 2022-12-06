@@ -17,7 +17,7 @@ public class Controller implements Api {
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("sign"); // указываю какую страницу вернуть
-        modelAndView.getModel().put("message", "Вход в систему");
+        modelAndView.getModel().put("userForm", new Login());
         return modelAndView;
     }
 
@@ -49,7 +49,6 @@ public class Controller implements Api {
     public void login(Login login){
         if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
             System.out.print('1');
-
         }
     }
 
