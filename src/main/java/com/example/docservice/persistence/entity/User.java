@@ -1,6 +1,11 @@
 package com.example.docservice.persistence.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +15,9 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "usertable")
+@Getter
+@Setter
+@Table(name = "users")
 @Data
 public class User implements UserDetails {
     @Id
