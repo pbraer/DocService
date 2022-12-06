@@ -2,14 +2,17 @@ package com.example.docservice.api;
 
 import com.example.docservice.dto.Login;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-//import com.example.docservice.service.ServicePage;
+import com.example.docservice.service.UserService;
 
 @RestController
 public class Controller implements Api {
+    @Autowired
+    private UserService userService;
     @Override
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
@@ -44,8 +47,10 @@ public class Controller implements Api {
     }
     @PostMapping("/sign") // авторизация
     public void login(Login login){
-        //ServicePage.createUser(login);
-        System.out.print("");
+        if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
+            System.out.print('1');
+
+        }
     }
 
     }

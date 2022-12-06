@@ -2,11 +2,11 @@ CREATE DATABASE MedServ;
 USE MedServ;
 SET GLOBAL time_zone = '+7:00';
 
-CREATE TABLE roletable (
+CREATE TABLE usertable (
                            id INT PRIMARY KEY AUTO_INCREMENT,
                            pass TEXT,
                            email TEXT,
-                           roleof BOOLEAN
+                           isdoc BOOLEAN
 );
 
 CREATE TABLE doctors (
@@ -65,7 +65,7 @@ VALUES
     ('11134', 'doc3@gmail.com','Хирург','Ivan','Ivanov','Ivanovich','1','1','1','1','1','1','15:00','16:00');
 
 
-INSERT INTO roletable(pass,email,roleof)
+INSERT INTO usertable(pass,email,roleof)
 VALUES
     ('1234!M', 'mayMoris@gmail.com','1'),
     ('1234!A', 'annAger@gmail.com','1'),
