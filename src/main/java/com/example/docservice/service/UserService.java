@@ -42,5 +42,35 @@ public class UserService {
 */
 
 
+    public List<Login> createUser(Login login) {
+
+        User user = new User();
+        user.setId(String.valueOf(userRepository.findAllUsers().size() + 1));
+        user.setEmail(login.getEmail());
+        user.setPass(login.getPass());
+        user.setRoleof(login.getRoleof());
+
+        userRepository.save(user);
+
+        return getAllUsers();
+    }
+
+    public String checkUser(String email, String pass) {
+
+        List<Login> userList = getAllUsers();
+        for (Login user : userList) {
+            if (user.getEmail().equals(email) && user.getPass().equals(pass)){
+
+                if (user.getRoleof().equals("1")){
+                    return("doc");
+                }else{
+                    return("client");
+                }
+            }
+        }
+
+        return "Клиента нет";
+    }
+
 
 }

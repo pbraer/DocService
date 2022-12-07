@@ -2,17 +2,12 @@ package com.example.docservice.api;
 
 import com.example.docservice.dto.Login;
 
-import com.example.docservice.persistence.entity.User;
-import com.example.docservice.persistence.repository.UserRepository;
-import com.example.docservice.service.ServicePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.docservice.service.UserService;
-
-import java.util.List;
 
 @RestController
 public class Controller implements Api {
@@ -51,23 +46,23 @@ public class Controller implements Api {
         return new RedirectView("/sign");
     }
     @PostMapping("/sign") // авторизация
-    public void login(Login login) {
-        List<Login> users = userService.getAllUsers();
-        System.out.println(users);
-        String emailFromCons = login.getEmail(); // берем почту с консоли
-        System.out.println(emailFromCons); // выводим ее, проверка что работает
-        // надо эту прочту проверить по бд, что 0 или 1.
-        // как это сделать........
-        /*
-        // берем список всех юзеров
-        for (UserDto user : users) { // прогоняем по циклу
-            Boolean role = user.getIsdoc(); // берем у каждого роль
-            String email = user.getEmail(); // берем почту
-            if (email.equals(emailFromCons)) { // проверяем что почты совпадают с бд и консиоли
-                System.out.println(role); // выводим номер роли
-            }
-
+    public ModelAndView login(@ModelAttribute("userForm") Login login, ModelAndView model){
+        System.out.println(login.getEmail());
+        System.out.println(login.getPass());
+        System.out.println(userService.getAllUsers());
+        String check = userService.checkUser(login.getEmail(), login.getPass());
+        if (check.equals("doc")){
+            model.setViewName("profile");
+            return model;
         }
+
+        model.setViewName("sign");
+        return model;
+
+        //if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
+          //  System.out.print('1');
+        //}
+    }
 
     }
 
@@ -90,5 +85,3 @@ public class Controller implements Api {
 
 */
 
-    }
-}
