@@ -45,6 +45,7 @@ public class Controller implements Api {
     public RedirectView redirectToWelcomePage() {
         return new RedirectView("/sign");
     }
+
     @PostMapping("/sign") // авторизация
     public ModelAndView login(@ModelAttribute("userForm") Login login, ModelAndView model){
         System.out.println(login.getEmail());
@@ -60,11 +61,11 @@ public class Controller implements Api {
         return model;
 
         //if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
-          //  System.out.print('1');
+        //  System.out.print('1');
         //}
     }
 
-    }
+}
 
 /*
     // Обработка форм

@@ -19,6 +19,6 @@ public class User {
     @Column(name = "email")
     private String email;
     private String pass;
-    private String isdoc;
+    private String roleof;
 
 }
