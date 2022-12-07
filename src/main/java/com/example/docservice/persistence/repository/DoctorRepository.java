@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 import com.example.docservice.persistence.entity.Doctor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, UUID>{
     @Query(value = "SELECT * FROM doctors", nativeQuery = true)
     List<Doctor> findAllDoctors();
-    List<Doctor> findByEmail(String email);
+    //Optional<Doctor> findByEmail(String email);
 }

@@ -7,6 +7,7 @@ import com.example.docservice.persistence.repository.DoctorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServicePage {
@@ -43,5 +44,10 @@ public class ServicePage {
 
         return resultList;
     }
-
+/*
+    public Doctor findDoctorByEmail(String email) {
+        Optional<Doctor> doctorFromDb = doctorRepository.findByEmail(email);
+        return doctorFromDb.orElse(new Doctor());
+    }
+*/
 }

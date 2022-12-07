@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM usertable", nativeQuery = true)
     List<User>  findAllUsers();
     List<User>  findByEmail(String email);
-    List<User> findByIsdoc(String isdoc);
+    Boolean findByIsdoc();
 
 }
 
