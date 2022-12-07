@@ -6,7 +6,7 @@ CREATE TABLE usertable (
                            id INT PRIMARY KEY AUTO_INCREMENT,
                            pass TEXT,
                            email TEXT,
-                           isdoc BOOLEAN
+                           roleof TEXT
 );
 
 CREATE TABLE doctors (
