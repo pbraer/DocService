@@ -48,21 +48,33 @@ public class Controller implements Api {
 
     @PostMapping("/sign") // авторизация
     public ModelAndView login(@ModelAttribute("userForm") Login login, ModelAndView model){
-        System.out.println(login.getEmail());
-        System.out.println(login.getPass());
-        System.out.println(userService.getAllUsers());
         String check = userService.checkUser(login.getEmail(), login.getPass());
-        if (check.equals("doc")){
-            model.setViewName("profile");
+        int emailInt = userService.checkEmail(login.getEmail());
+        int passInt = userService.checkPass(login.getPass());
+        if (emailInt == 1 && passInt == 1) { // проверяем совпадает ли с бд
+            if (check.equals("doc")){ // проверяем если доктор
+                model.setViewName("profile");
+                return model;
+            }
+            if (check.equals("client")){ // проверяем если клиент
+                model.setViewName("registration");
+                return model;
+            }
+        }
+        if (emailInt == 1 && passInt == 0) { // если почта есть в бд, а пароль не совпал
+            model.getModel().put("passError", "Неверно введен пароль"); // надо в html добавить сноску на ошибку
             return model;
+        }
+
+        if (emailInt == 0 && passInt == 0) {
+            // добавляем в бд к клиентам
+            userService.createUser(login);
+            // не получается поставить роль 0, ругается(
         }
 
         model.setViewName("sign");
         return model;
 
-        //if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
-        //  System.out.print('1');
-        //}
     }
 
 }

@@ -30,19 +30,15 @@ public class UserService {
         return resultList;
     }
 
-    public List<Login> createUser(Login login) {
-
+    public void createUser(Login login) {
         User user = new User();
         user.setId(String.valueOf(userRepository.findAllUsers().size() + 1));
         user.setEmail(login.getEmail());
         user.setPass(login.getPass());
         user.setRoleof(login.getRoleof());
-
         userRepository.save(user);
 
-        return getAllUsers();
     }
-
     public String checkUser(String email, String pass) {
 
         List<Login> userList = getAllUsers();
@@ -60,5 +56,25 @@ public class UserService {
         return "Клиента нет";
     }
 
+    public int checkEmail(String email) {
+        int i = 0;
+        List<Login> userList = getAllUsers();
+        for (Login user : userList) {
+            if (user.getEmail().equals(email)) {
+                i++;
+            }
+        }
+        return i;
+    }
 
+    public int checkPass(String pass) {
+        int i = 0;
+        List<Login> userList = getAllUsers();
+        for (Login user : userList) {
+            if (user.getPass().equals(pass)) {
+                i++;
+            }
+        }
+        return i;
+    }
 }

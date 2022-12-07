@@ -20,12 +20,12 @@ public class Client {
     @Column(name = "email")
     private String email;
     private String pass;
-    private String qualif;
-    private String firstname;
-    private String lastname;
-    private String middlename;
-    private String date;
-    private String time;
+    private String qualif = null;
+    private String firstname = null;
+    private String lastname = null;
+    private String middlename = null;
+    private String date = null;
+    private String time = null;
 
 
 }
