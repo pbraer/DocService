@@ -50,6 +50,8 @@ public class Controller implements Api {
         System.out.println(login.getEmail());
         System.out.println(login.getPass());
         System.out.println(userService.getAllUsers());
+        System.out.println(userService.checkUser(login.getEmail(), login.getPass()));
+
         //if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
           //  System.out.print('1');
         //}
