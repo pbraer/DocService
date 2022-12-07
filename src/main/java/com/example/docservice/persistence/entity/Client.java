@@ -19,9 +19,13 @@ public class Client {
 
     @Column(name = "email")
     private String email;
-
-    private String spec;
-    private String doctor;
+    private String pass;
+    private String qualif;
+    private String firstname;
+    private String lastname;
+    private String middlename;
     private String date;
     private String time;
+
+
 }

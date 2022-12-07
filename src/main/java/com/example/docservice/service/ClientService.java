@@ -1,5 +1,6 @@
 package com.example.docservice.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.docservice.dto.ClientDto;
 import com.example.docservice.persistence.entity.Client;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Service
 public class ClientService {
-
+    @Autowired
     private final ClientRepository clientRepository;
 
     public ClientService(ClientRepository userRepository) {
@@ -19,14 +20,16 @@ public class ClientService {
     }
 
     public List<ClientDto> createClient(ClientDto clientDto) {
-        Client student = new Client();
-        student.setId(UUID.randomUUID());
-        student.setSpec(clientDto.getSpec());
-        student.setDoctor(clientDto.getDoctor());
-        student.setDate(clientDto.getDate());
-        student.setTime(clientDto.getTime());
+        Client client = new Client();
+        client.setId(UUID.randomUUID());
+        client.setQualif(clientDto.getQualif());
+        client.setFirstname(clientDto.getFirstname());
+        client.setLastname(clientDto.getLastname());
+        client.setMiddlename(clientDto.getMiddlename());
+        client.setDate(clientDto.getDate());
+        client.setTime(clientDto.getTime());
 
-        clientRepository.save(student);
+        clientRepository.save(client);
 
         return getAllClient();
     }
@@ -37,8 +40,10 @@ public class ClientService {
         for (Client client : clients) {
             ClientDto clientDto = new ClientDto();
             clientDto.setId(Long.parseLong(client.getId().toString()));
-            clientDto.setSpec(client.getSpec());
-            clientDto.setDoctor(client.getDoctor());
+            clientDto.setQualif(client.getQualif());
+            clientDto.setFirstname(client.getFirstname());
+            clientDto.setLastname(client.getLastname());
+            clientDto.setMiddlename(client.getMiddlename());
             clientDto.setDate(client.getDate());
             clientDto.setTime(client.getTime());
             resultList.add(clientDto);
