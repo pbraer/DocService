@@ -2,7 +2,6 @@ package com.example.docservice.api;
 
 import com.example.docservice.dto.Login;
 
-import com.example.docservice.dto.UserDto;
 import com.example.docservice.persistence.entity.User;
 import com.example.docservice.persistence.repository.UserRepository;
 import com.example.docservice.service.ServicePage;
@@ -52,12 +51,13 @@ public class Controller implements Api {
         return new RedirectView("/sign");
     }
     @PostMapping("/sign") // авторизация
-    public void login(Login login){
+    public void login(Login login) {
+        List<Login> users = userService.getAllUsers();
+        System.out.println(users);
         String emailFromCons = login.getEmail(); // берем почту с консоли
         System.out.println(emailFromCons); // выводим ее, проверка что работает
         // надо эту прочту проверить по бд, что 0 или 1.
         // как это сделать........
-        //List<UserDto> users = userService.getAllUsers();
         /*
         // берем список всех юзеров
         for (UserDto user : users) { // прогоняем по циклу
@@ -69,10 +69,7 @@ public class Controller implements Api {
 
         }
 
-         */
-
     }
-}
 
 /*
     // Обработка форм
@@ -93,3 +90,5 @@ public class Controller implements Api {
 
 */
 
+    }
+}

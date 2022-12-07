@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
 @Getter
 @Setter
@@ -17,11 +15,10 @@ import java.util.UUID;
 @Data
 public class User {
     @Id
-    private UUID id;
+    private String id;
     @Column(name = "email")
     private String email;
     private String pass;
-    private Boolean isdoc;
-
+    private String isdoc;
 
 }
