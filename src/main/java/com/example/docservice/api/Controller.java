@@ -47,9 +47,12 @@ public class Controller implements Api {
     }
     @PostMapping("/sign") // авторизация
     public void login(Login login){
-        if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
-            System.out.print('1');
-        }
+        System.out.println(login.getEmail());
+        System.out.println(login.getPass());
+        System.out.println(userService.getAllUsers());
+        //if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
+          //  System.out.print('1');
+        //}
     }
 
     }
