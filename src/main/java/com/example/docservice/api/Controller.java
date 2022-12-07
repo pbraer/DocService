@@ -45,12 +45,20 @@ public class Controller implements Api {
     public RedirectView redirectToWelcomePage() {
         return new RedirectView("/sign");
     }
+
     @PostMapping("/sign") // авторизация
-    public void login(Login login){
+    public ModelAndView login(@ModelAttribute("userForm") Login login, ModelAndView model){
         System.out.println(login.getEmail());
         System.out.println(login.getPass());
         System.out.println(userService.getAllUsers());
-        System.out.println(userService.checkUser(login.getEmail(), login.getPass()));
+        String check = userService.checkUser(login.getEmail(), login.getPass());
+        if (check.equals("doc")){
+            model.setViewName("profile");
+            return model;
+        }
+
+        model.setViewName("sign");
+        return model;
 
         //if (login.getEmail().equals(userService.findByEmail(login.getEmail()))){
           //  System.out.print('1');
