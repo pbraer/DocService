@@ -59,11 +59,11 @@ public class Controller implements Api {
         int passInt = userService.checkPass(login.getPass());
         if (emailInt == 1 && passInt == 1) { // проверяем совпадает ли с бд
             if (check.equals("doc")){ // проверяем если доктор
-                model.setViewName("profile");
+                model.setViewName("profile"); // открываем страницу доктора
                 return model;
             }
             if (check.equals("client")){ // проверяем если клиент
-                model.setViewName("registration");
+                model.setViewName("registration"); // отерываем страницу клиента
                 return model;
             }
         }
@@ -72,13 +72,12 @@ public class Controller implements Api {
             return model;
         }
 
-        if (emailInt == 0 && passInt == 0) {
-            userService.createUser(login);
-            model.setViewName("registration");
+        if (emailInt == 0 && passInt == 0) { // если нет в бд
+            userService.createUser(login); // добавляем клиента в User
+            clientService.updateUser(login); // добавляем клиента в Client
+            model.setViewName("registration"); // Открывает страницу клиента
             return model;
         }
-        //userService.removeUserByEmail(Long.valueOf("12"));
-        //userService.removeUserByEmail(Long.valueOf("13"));
 
         model.setViewName("sign");
         return model;
