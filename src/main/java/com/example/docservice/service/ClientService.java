@@ -1,11 +1,10 @@
 package com.example.docservice.service;
 
-import com.example.docservice.dto.Login;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.example.docservice.dto.ClientDto;
 import com.example.docservice.persistence.entity.Client;
 import com.example.docservice.persistence.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class ClientService {
     }
 
 
-    public void updateUser(Login login) {
+/*    public void updateUser(Login login) {
         Client client = new Client();
         client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
         client.setEmail(login.getEmail());
@@ -45,7 +44,7 @@ public class ClientService {
         client.setDateAppoitm(null);
         client.setTimeAppoitm(null);
         clientRepository.save(client);
-    }
+    }*/
 
 
 

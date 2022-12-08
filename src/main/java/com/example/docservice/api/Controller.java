@@ -1,15 +1,15 @@
 package com.example.docservice.api;
 
-import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.Login;
-
 import com.example.docservice.service.ClientService;
+import com.example.docservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
-import com.example.docservice.service.UserService;
 
 @RestController
 public class Controller implements Api {
@@ -57,6 +57,7 @@ public class Controller implements Api {
         String check = userService.checkUser(login.getEmail(), login.getPass());
         int emailInt = userService.checkEmail(login.getEmail());
         int passInt = userService.checkPass(login.getPass());
+
         if (emailInt == 1 && passInt == 1) { // проверяем совпадает ли с бд
             if (check.equals("doc")){ // проверяем если доктор
                 model.setViewName("profile"); // открываем страницу доктора
@@ -67,14 +68,14 @@ public class Controller implements Api {
                 return model;
             }
         }
+
         if (emailInt == 1 && passInt == 0) { // если почта есть в бд, а пароль не совпал
-            model.getModel().put("passError", "Неверно введен пароль"); // надо в html добавить сноску на ошибку
+            model.getModel().put("passwordError", "Неверно введен пароль");
             return model;
         }
 
         if (emailInt == 0 && passInt == 0) { // если нет в бд
             userService.createUser(login); // добавляем клиента в User
-            clientService.updateUser(login); // добавляем клиента в Client
             model.setViewName("registration"); // Открывает страницу клиента
             return model;
         }

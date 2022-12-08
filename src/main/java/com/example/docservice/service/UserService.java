@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -44,6 +43,8 @@ public class UserService {
     public void removeUserByEmail(Long id) {
         userRepository.deleteById(id);
     }
+
+
     public String checkUser(String email, String pass) {
 
         List<Login> userList = getAllUsers();
@@ -67,6 +68,7 @@ public class UserService {
         for (Login user : userList) {
             if (user.getEmail().equals(email)) {
                 i++;
+                return i;
             }
         }
         return i;
@@ -78,6 +80,7 @@ public class UserService {
         for (Login user : userList) {
             if (user.getPass().equals(pass)) {
                 i++;
+                return i;
             }
         }
         return i;
