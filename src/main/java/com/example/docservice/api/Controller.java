@@ -1,7 +1,9 @@
 package com.example.docservice.api;
 
+import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.Login;
 
+import com.example.docservice.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +15,10 @@ import com.example.docservice.service.UserService;
 public class Controller implements Api {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ClientService clientService;
+
     @Override
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
@@ -67,10 +73,12 @@ public class Controller implements Api {
         }
 
         if (emailInt == 0 && passInt == 0) {
-            // добавляем в бд к клиентам
             userService.createUser(login);
-            // не получается поставить роль 0, ругается(
+            model.setViewName("registration");
+            return model;
         }
+        //userService.removeUserByEmail(Long.valueOf("12"));
+        //userService.removeUserByEmail(Long.valueOf("13"));
 
         model.setViewName("sign");
         return model;
