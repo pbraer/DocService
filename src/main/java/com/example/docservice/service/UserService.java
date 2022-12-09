@@ -23,7 +23,7 @@ public class UserService {
             login.setId(user.getId().toString());
             login.setEmail(user.getEmail().toString());
             login.setPass(user.getPass().toString());
-            login.setRoleof(user.getRoleof().toString());
+            login.setIsdoc(user.getIsdoc().toString());
             resultList.add(login);
         }
 
@@ -35,7 +35,7 @@ public class UserService {
         user.setId(String.valueOf(userRepository.findAllUsers().size() + 1));
         user.setEmail(login.getEmail());
         user.setPass(login.getPass());
-        user.setRoleof("0");
+        user.setIsdoc("0");
         userRepository.save(user);
 
     }
@@ -51,7 +51,7 @@ public class UserService {
         for (Login user : userList) {
             if (user.getEmail().equals(email) && user.getPass().equals(pass)){
 
-                if (user.getRoleof().equals("1")){
+                if (user.getIsdoc().equals("1")){
                     return("doc");
                 }else{
                     return("client");

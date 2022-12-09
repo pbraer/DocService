@@ -62,8 +62,8 @@ VALUES
 INSERT INTO doctors(pass,email,qualif,firstname,lastname,middlename,monday,tuesday,wednesday,thursday,friday,saturday,timeFrom,timeTo)
 VALUES
     ('11134', 'doc1@gmail.com','Гастроэнтеролог','Ivan','Ivanov','Ivanovich','1','1','0','1','1','1','9:00','18:00'),
-    ('11134', 'doc2@gmail.com','Инфекционист','Ivan','Ivanov','Ivanovich','1','1','1','1','1','0','10:00','20:00'),
-    ('11134', 'doc3@gmail.com','Хирург','Ivan','Ivanov','Ivanovich','1','1','1','1','1','1','15:00','16:00');
+    ('11134', 'doc2@gmail.com','Инфекционист','Petr','Petrov','Petrovich','1','1','1','1','1','0','10:00','20:00'),
+    ('11134', 'doc3@gmail.com','Хирург','Maxim','Max','Maximovna','1','1','1','1','1','1','15:00','16:00');
 
 
 INSERT INTO usertable(pass,email,roleof)

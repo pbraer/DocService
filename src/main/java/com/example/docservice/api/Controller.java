@@ -80,10 +80,17 @@ public class Controller implements Api {
             return model;
 
         }else if (emailInt == 0 && passInt == 0) { // если нет в бд
-            userService.createUser(login); // добавляем клиента в User
-            model.clear();
-            model.setView(new RedirectView("/registration"));
+            if (login.getEmail() != "" && login.getPass() != "") { //провверяем что поля не пустые
+                userService.createUser(login); // добавляем клиента в User
+                model.clear();
+                model.setView(new RedirectView("/registration"));
+            }
+            else{
+                model.getModel().put("errorFormatInput", "Неверный формат ввода");
+            }
             return model;
+
+
         }
 
         model.setViewName("sign");
