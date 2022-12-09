@@ -10,22 +10,23 @@ CREATE TABLE usertable (
 );
 
 CREATE TABLE doctors (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    pass TEXT NOT NULL,
-    email TEXT NOT NULL,
-    firstname TEXT,
-    lastname TEXT,
-    middlename TEXT,
-    qualif TEXT,
-    image VARCHAR(1024) DEFAULT '/tmp/default.jpg',
-    monday BOOLEAN,
-    tuesday BOOLEAN,
-    wednesday BOOLEAN,
-    thursday BOOLEAN,
-    friday BOOLEAN,
-    saturday BOOLEAN,
-    timeFrom VARCHAR(5),
-    timeTo VARCHAR(5)
+                         id INT PRIMARY KEY AUTO_INCREMENT,
+                         pass TEXT NOT NULL,
+                         email TEXT NOT NULL,
+                         firstname TEXT,
+                         lastname TEXT,
+                         middlename TEXT,
+                         qualif TEXT,
+                         image VARCHAR(1024) DEFAULT '/tmp/default.jpg',
+                         monday BOOLEAN,
+                         tuesday BOOLEAN,
+                         wednesday BOOLEAN,
+                         thursday BOOLEAN,
+                         friday BOOLEAN,
+                         saturday BOOLEAN,
+                         sunday BOOLEAN,
+                         timeFrom VARCHAR(5),
+                         timeTo VARCHAR(5)
 );
 
 CREATE TABLE patientsAppoitm (

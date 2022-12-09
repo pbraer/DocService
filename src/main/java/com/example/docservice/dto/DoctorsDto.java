@@ -11,9 +11,9 @@ public class DoctorsDto {
 
     private String id;
     private String email;
-    private String password;
-    private String firstname;
-    private String lastname;
+    private String pass;
+    private String firstname = null;
+    private String lastname = null;
     private String middlename = null;
     private String qualif = null;
     private Boolean monday = false;
@@ -21,8 +21,10 @@ public class DoctorsDto {
     private Boolean wednesday = false;
     private Boolean thursday = false;
     private Boolean friday = false;
+    private Boolean saturday = false;
+    private Boolean sunday = false;
     private String timeFrom = null;
     private String timeTo = null;
-    private String image;
+    private String image = null;
 
 }

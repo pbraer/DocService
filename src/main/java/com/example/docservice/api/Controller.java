@@ -1,5 +1,6 @@
 package com.example.docservice.api;
 
+import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
 import com.example.docservice.service.ClientService;
 import com.example.docservice.service.UserService;
@@ -31,6 +32,7 @@ public class Controller implements Api {
     public ModelAndView profile() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile"); // указываю какую страницу вернуть
+        modelAndView.getModel().put("doctorForm", new DoctorsDto());
         return modelAndView;
     }
 
@@ -52,31 +54,35 @@ public class Controller implements Api {
         return new RedirectView("/sign");
     }
 
-    @PostMapping("/sign") // авторизация
+
+    @PostMapping("/login") // авторизация
     public ModelAndView login(@ModelAttribute("userForm") Login login, ModelAndView model){
         String check = userService.checkUser(login.getEmail(), login.getPass());
         int emailInt = userService.checkEmail(login.getEmail());
         int passInt = userService.checkPass(login.getPass());
 
         if (emailInt == 1 && passInt == 1) { // проверяем совпадает ли с бд
-            if (check.equals("doc")){ // проверяем если доктор
-                model.setViewName("profile"); // открываем страницу доктора
-                return model;
-            }
-            if (check.equals("client")){ // проверяем если клиент
-                model.setViewName("registration"); // отерываем страницу клиента
-                return model;
-            }
-        }
 
-        if (emailInt == 1 && passInt == 0) { // если почта есть в бд, а пароль не совпал
+            if (check.equals("doc")){ // проверяем если доктор
+                model.clear();
+                model.setView(new RedirectView("/profile"));
+                return model;
+            }
+
+            if (check.equals("client")){ // проверяем если клиент
+                model.clear();
+                model.setView(new RedirectView("/registration"));
+                return model;
+            }
+
+        }else if (emailInt == 1 && passInt == 0) { // если почта есть в бд, а пароль не совпал
             model.getModel().put("passwordError", "Неверно введен пароль");
             return model;
-        }
 
-        if (emailInt == 0 && passInt == 0) { // если нет в бд
+        }else if (emailInt == 0 && passInt == 0) { // если нет в бд
             userService.createUser(login); // добавляем клиента в User
-            model.setViewName("registration"); // Открывает страницу клиента
+            model.clear();
+            model.setView(new RedirectView("/registration"));
             return model;
         }
 
@@ -85,24 +91,15 @@ public class Controller implements Api {
 
     }
 
+    /*@PostMapping("/docEdit") // изменение профиля врача
+    public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
+
+
+    }
+*/
+
+
 }
 
-/*
-    // Обработка форм
-    @Autowired(required = false)
-    private ServicePage servicePage;
 
-
-
-
-    @PostMapping("/docinfo") // информация о враче
-    public void changeDocInfo(ProfileDocDto docAccount){
-    }
-
-    @PostMapping("/clientReg") // информация о враче
-    public void clientReg(ClientReg client){
-        servicePage.makeOrder(client);
-
-
-*/
 
