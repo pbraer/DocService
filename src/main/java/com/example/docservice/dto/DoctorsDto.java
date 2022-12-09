@@ -16,7 +16,6 @@ public class DoctorsDto {
     private String lastname;
     private String middlename = null;
     private String qualif = null;
-    private String image;
     private Boolean monday = false;
     private Boolean tuesday = false;
     private Boolean wednesday = false;
@@ -24,5 +23,6 @@ public class DoctorsDto {
     private Boolean friday = false;
     private String timeFrom = null;
     private String timeTo = null;
+    private String image;
 
 }
