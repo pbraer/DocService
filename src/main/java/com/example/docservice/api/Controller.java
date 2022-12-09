@@ -60,11 +60,13 @@ public class Controller implements Api {
 
         if (emailInt == 1 && passInt == 1) { // проверяем совпадает ли с бд
             if (check.equals("doc")){ // проверяем если доктор
-                model.setViewName("profile"); // открываем страницу доктора
+                model.clear();
+                model.setView(new RedirectView("/profile"));
                 return model;
             }
             if (check.equals("client")){ // проверяем если клиент
-                model.setViewName("registration"); // отерываем страницу клиента
+                model.clear();
+                model.setView(new RedirectView("/registration"));
                 return model;
             }
         }
