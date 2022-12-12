@@ -109,15 +109,13 @@ public class Controller implements Api {
         return model;
     }
 
-    @PostMapping("/schedule") //
+
+    /*@GetMapping("/schedule") //
     public ModelAndView schedule(@ModelAttribute("userForm") Login login, ModelAndView model){
         model.clear();
         model.setView(new RedirectView("/schedule/" + userService.getId(login)));
         return model;
-    }
-
-
-
+    }*/
 
     @PostMapping("/docEdit") // изменение профиля врача
     public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model) {
