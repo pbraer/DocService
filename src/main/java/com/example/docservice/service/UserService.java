@@ -35,7 +35,6 @@ public class UserService {
         String id = null;
         List<User> users = userRepository.findAllUsers();
         for (User user : users) {
-            System.out.println(user.getEmail().equals(login.getEmail()));
             if (user.getEmail().equals(login.getEmail())) {
                 id = user.getId();
             }
