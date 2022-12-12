@@ -34,7 +34,7 @@ public class Controller implements Api {
     }
 
     @Override
-    public ModelAndView registration() {
+    public ModelAndView registration(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("registration"); // указываю какую страницу вернуть
         return modelAndView;
@@ -85,7 +85,7 @@ public class Controller implements Api {
 
             if (check.equals("client")){ // проверяем если клиент
                 model.clear();
-                model.setView(new RedirectView("/registration"));
+                model.setView(new RedirectView("/registration/"+ userService.getId(login)));
                 return model;
             }
 
