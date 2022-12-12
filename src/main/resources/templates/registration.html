@@ -40,10 +40,10 @@
 
 <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
     <h4 class="mb-3">Записаться к врачу</h4>
-    <form action="/clientReg" method="post">
+    <form action="/clientReg" method="post" modelAttribute="clientForm">
         <div class="col-md-5">
             <label for="spec" class="form-label">Специальность</label>
-            <select class="form-select" id="spec" name="spec" required>
+            <select class="form-select" id="spec" name="qualif" required>
                 <option value="">Выбрать...</option>
                 <option>Гастроэнтеролог</option>
                 <option>Дерматовенеролог</option>
@@ -79,7 +79,7 @@
 
             <div class="row gy-3">
                 <div class="col-md-6">
-                    <input type="date" id="choosedate" name="date" value="2022-12-03" min="2022-12-03" max="2022-12-31">
+                    <input type="date" id="choosedate" name="dateappoitm" value="2022-12-03" min="2022-12-03" max="2022-12-31">
                 </div>
             </div>
 
@@ -88,8 +88,8 @@
             <h5 class="mb-3">Время</h5>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="time" name="time" value="time">
-            <label class="form-check-label" for="time">9:00</label>
+            <input class="form-check-input" type="checkbox" name="timeappoitm" value="9:00">
+            <label class="form-check-label" >9:00</label>
         </div>
 
             <hr class="my-4">

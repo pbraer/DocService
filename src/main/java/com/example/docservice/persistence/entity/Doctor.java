@@ -20,6 +20,8 @@ public class Doctor {
 
     @Id
     private String id; // ключ - уникальный id
+    private String userid;
+
     @Column(name = "email")
     private String email;
 

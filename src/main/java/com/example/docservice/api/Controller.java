@@ -1,5 +1,6 @@
 package com.example.docservice.api;
 
+import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
 import com.example.docservice.service.ClientService;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class Controller implements Api {
     @Autowired
     private UserService userService;
+
+    @Autowired
     private ServicePage docService;
 
     @Autowired
@@ -40,6 +43,9 @@ public class Controller implements Api {
     public ModelAndView registration(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("registration"); // указываю какую страницу вернуть
+        modelAndView.getModel().put("clientForm", new ClientDto());
+        modelAndView.getModel().put("userID", id);
+        //modelAndView.getModel().put("client", clientService.getRecordsByEmail(userService.getEmailById(id)));
         return modelAndView;
     }
 
@@ -65,7 +71,7 @@ public class Controller implements Api {
             if (!login.getEmail().equals("") && !login.getPass().equals("")) { //проверяем что поля не пустые
                 userService.createUser(login); // добавляем клиента в User
                 model.clear();
-                model.setView(new RedirectView("/registration"));
+                model.setView(new RedirectView("/registration/"+ userService.getId(login)));
             }
             else if (login.getEmail().equals("") && !login.getPass().equals("") ) { //проверяем что почта не пустая
                 model.getModel().put("emailError", "Введите почту");
@@ -129,6 +135,17 @@ public class Controller implements Api {
         System.out.println(doctorsDto.getQualif());
         System.out.println(doctorsDto.getMonday());
         System.out.println(doctorsDto.getTimeFrom());
+        return model;
+
+    }
+
+    @PostMapping("/clientReg") // изменение профиля врача
+    public ModelAndView registration(@ModelAttribute("clientForm") ClientDto clientDto, @ModelAttribute("userID") String id,  ModelAndView model){
+        System.out.println(id);
+        clientDto.setUserid(id);
+        clientService.createRecord(clientDto);
+        System.out.println(clientService.getAllRecords());
+
         return model;
 
     }
