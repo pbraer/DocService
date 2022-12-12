@@ -11,7 +11,7 @@ public interface Api {
 
     @GetMapping(value = ApiUrls.REGISTRATION) ModelAndView registration();
 
-    @GetMapping(value = ApiUrls.SCHEDULE) ModelAndView schedule();
+    @GetMapping(value = ApiUrls.SCHEDULE) ModelAndView schedule(@PathVariable(value = "id") String id);
 
 
 }

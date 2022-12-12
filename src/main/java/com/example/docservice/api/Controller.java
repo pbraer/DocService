@@ -41,7 +41,7 @@ public class Controller implements Api {
     }
 
     @Override
-    public ModelAndView schedule() {
+    public ModelAndView schedule(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("schedule"); // указываю какую страницу вернуть
         return modelAndView;
@@ -105,17 +105,22 @@ public class Controller implements Api {
             }
             return model;
         }
-
-
-
         model.setViewName("sign");
         return model;
+    }
 
+    @PostMapping("/schedule") //
+    public ModelAndView schedule(@ModelAttribute("userForm") Login login, ModelAndView model){
+        model.clear();
+        model.setView(new RedirectView("/schedule/" + userService.getId(login)));
+        return model;
     }
 
 
+
+
     @PostMapping("/docEdit") // изменение профиля врача
-    public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
+    public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model) {
         System.out.println(doctorsDto.getId());
         System.out.println(doctorsDto.getEmail());
         System.out.println(doctorsDto.getPass());
@@ -127,11 +132,6 @@ public class Controller implements Api {
         System.out.println(doctorsDto.getMonday());
         System.out.println(doctorsDto.getTimeFrom());
         return model;
-
     }
-
-
 }
-
-
 
