@@ -3,6 +3,7 @@ package com.example.docservice.api;
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
 import com.example.docservice.service.ClientService;
+import com.example.docservice.service.ServicePage;
 import com.example.docservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class Controller implements Api {
     @Autowired
     private UserService userService;
+    private ServicePage docService;
 
     @Autowired
     private ClientService clientService;
@@ -30,6 +32,7 @@ public class Controller implements Api {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile"); // указываю какую страницу вернуть
         modelAndView.getModel().put("doctorForm", new DoctorsDto());
+        modelAndView.getModel().put("doctor", docService.getDocById(id));
         return modelAndView;
     }
 
