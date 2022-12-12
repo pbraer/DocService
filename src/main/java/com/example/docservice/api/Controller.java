@@ -76,24 +76,32 @@ public class Controller implements Api {
             }
 
         }else if (emailInt == 1 && passInt == 0) { // если почта есть в бд, а пароль не совпал
+            if (login.getPass().equals("")) { //проверяем что поля не пустые
+                model.getModel().put("passError", "Введите пароль");
+            }
+            else{
             model.getModel().put("passError", "Неверно введен пароль");
+            }
             return model;
 
         }else if (emailInt == 0 && passInt == 0) { // если нет в бд
-            if (login.getEmail() != "" && login.getPass() != "") { //проверяем что поля не пустые
+            if (!login.getEmail().equals("") && !login.getPass().equals("")) { //проверяем что поля не пустые
                 userService.createUser(login); // добавляем клиента в User
                 model.clear();
                 model.setView(new RedirectView("/registration"));
             }
-            else{
-                model.getModel().put("emailError", "Введите данные");
-                return model;
+            else if (login.getEmail().equals("") && !login.getPass().equals("") ) { //проверяем что почта не пустая
+                model.getModel().put("emailError", "Введите почту");
             }
-
-
+            else if (login.getPass().equals("") && !login.getEmail().equals("")) { //проверяем что пароль не пустой
+                model.getModel().put("passError", "Введите пароль");
+            }
+            else{ //проверяем что пароль и почка не пустые
+                model.getModel().put("emailError", "Введите данные");
+            }
             return model;
-
         }
+
 
         model.setViewName("sign");
         return model;
