@@ -28,7 +28,7 @@ public class Controller implements Api {
     @Override
     public ModelAndView profile(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile/" + id); // указываю какую страницу вернуть
+        modelAndView.setViewName("profile"); // указываю какую страницу вернуть
         modelAndView.getModel().put("doctorForm", new DoctorsDto());
         return modelAndView;
     }
@@ -79,7 +79,6 @@ public class Controller implements Api {
 
             if (check.equals("doc")){ // проверяем если доктор
                 model.clear();
-                System.out.println(userService.getId(login));
                 model.setView(new RedirectView("/profile/" + userService.getId(login)));
                 return model;
             }
