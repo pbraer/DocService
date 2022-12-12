@@ -55,7 +55,7 @@ public class Controller implements Api {
     }
 
 
-    @PostMapping("/login") // авторизация
+    @PostMapping("/sign") // авторизация
     public ModelAndView login(@ModelAttribute("userForm") Login login, ModelAndView model){
         String check = userService.checkUser(login.getEmail(), login.getPass());
         int emailInt = userService.checkEmail(login.getEmail());
@@ -76,20 +76,22 @@ public class Controller implements Api {
             }
 
         }else if (emailInt == 1 && passInt == 0) { // если почта есть в бд, а пароль не совпал
-            model.getModel().put("passwordError", "Неверно введен пароль");
+            model.getModel().put("passError", "Неверно введен пароль");
             return model;
 
         }else if (emailInt == 0 && passInt == 0) { // если нет в бд
-            if (login.getEmail() != "" && login.getPass() != "") { //провверяем что поля не пустые
+            if (login.getEmail() != "" && login.getPass() != "") { //проверяем что поля не пустые
                 userService.createUser(login); // добавляем клиента в User
                 model.clear();
                 model.setView(new RedirectView("/registration"));
             }
             else{
-                model.getModel().put("errorFormatInput", "Неверный формат ввода");
+                model.getModel().put("emailError", "Введите данные");
+                return model;
             }
-            return model;
 
+
+            return model;
 
         }
 
@@ -98,12 +100,22 @@ public class Controller implements Api {
 
     }
 
-    /*@PostMapping("/docEdit") // изменение профиля врача
-    public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
 
+    @PostMapping("/docEdit") // изменение профиля врача
+    public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
+        System.out.println(doctorsDto.getId());
+        System.out.println(doctorsDto.getEmail());
+        System.out.println(doctorsDto.getPass());
+        System.out.println(doctorsDto.getLastname());
+        System.out.println(doctorsDto.getFirstname());
+        System.out.println(doctorsDto.getMiddlename());
+        System.out.println(doctorsDto.getImage());
+        System.out.println(doctorsDto.getQualif());
+        System.out.println(doctorsDto.getMonday());
+        System.out.println(doctorsDto.getTimeFrom());
+        return model;
 
     }
-*/
 
 
 }
