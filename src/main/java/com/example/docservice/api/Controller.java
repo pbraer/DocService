@@ -5,12 +5,11 @@ import com.example.docservice.dto.Login;
 import com.example.docservice.service.ClientService;
 import com.example.docservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.UUID;
 
 @RestController
 public class Controller implements Api {
@@ -29,9 +28,9 @@ public class Controller implements Api {
     }
 
     @Override
-    public ModelAndView profile() {
+    public ModelAndView profile(@PathVariable(value = "id") UUID id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile"); // указываю какую страницу вернуть
+        modelAndView.setViewName("profile/" + id); // указываю какую страницу вернуть
         modelAndView.getModel().put("doctorForm", new DoctorsDto());
         return modelAndView;
     }
@@ -82,7 +81,7 @@ public class Controller implements Api {
 
             if (check.equals("doc")){ // проверяем если доктор
                 model.clear();
-                model.setView(new RedirectView("/profile"));
+                model.setView(new RedirectView("/profile/" + userService.getId()));
                 return model;
             }
 
