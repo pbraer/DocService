@@ -9,7 +9,7 @@ public interface Api {
 
     @GetMapping(value = ApiUrls.PROFILE) ModelAndView profile(@PathVariable(value = "id") String id);
 
-    @GetMapping(value = ApiUrls.REGISTRATION) ModelAndView registration();
+    @GetMapping(value = ApiUrls.REGISTRATION) ModelAndView registration(@PathVariable(value = "id") String id);
 
     @GetMapping(value = ApiUrls.SCHEDULE) ModelAndView schedule();
 
