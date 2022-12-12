@@ -44,15 +44,18 @@ public class Controller implements Api {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("registration"); // указываю какую страницу вернуть
         modelAndView.getModel().put("clientForm", new ClientDto());
-        modelAndView.getModel().put("userID", id);
+        modelAndView.addObject("userId", id);
+
         //modelAndView.getModel().put("client", clientService.getRecordsByEmail(userService.getEmailById(id)));
         return modelAndView;
     }
 
     @Override
-    public ModelAndView schedule() {
+    public ModelAndView schedule(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("schedule"); // указываю какую страницу вернуть
+        modelAndView.addObject("records", new ClientDto()); // пропишем get list для записей id
+        modelAndView.addObject("userId", id);
         return modelAndView;
     }
     @GetMapping("/")
@@ -115,8 +118,6 @@ public class Controller implements Api {
             return model;
         }
 
-
-
         model.setViewName("sign");
         return model;
 
@@ -139,14 +140,27 @@ public class Controller implements Api {
 
     }
 
-    @PostMapping("/clientReg") // изменение профиля врача
-    public ModelAndView registration(@ModelAttribute("clientForm") ClientDto clientDto, @ModelAttribute("userID") String id,  ModelAndView model){
-        System.out.println(id);
-        clientDto.setUserid(id);
-        clientService.createRecord(clientDto);
-        System.out.println(clientService.getAllRecords());
+    @PostMapping("/registration") // изменение профиля врача
+    public ModelAndView registration(@ModelAttribute("clientForm") ClientDto clientDto,  ModelAndView model){
 
-        return model;
+        if(clientDto.getQualif().equals("")){
+            model.getModel().put("qualifError", "Заполните данные");
+            return model;
+        }else if (clientDto.getDoctor().equals("")){
+            model.getModel().put("docError", "Выберите специалиста");
+            return model;
+        }else if (clientDto.getTimeappoitm().equals("")){
+        model.getModel().put("timeError", "Выберите время");
+            return model;
+        }else if (clientDto.getDateappoitm().equals("")){
+            model.getModel().put("dateError", "Выберите дату");
+            return model;
+        }else {
+            clientService.createRecord(clientDto);
+            model.clear();
+            model.setView(new RedirectView("/registration/"+ clientDto.getUserid()));
+            return model;
+        }
 
     }
 
