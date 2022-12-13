@@ -44,10 +44,10 @@
 <body class="text-center">
 
   <main class="form-signin w-100 m-auto">
-    <form action="/enter" method="post">
+    <form action="/sign" method="POST" modelAttribute="userForm">
       <h1 class="h3 mb-3 fw-normal">Войдите в систему</h1>
       <div class="form-floating">
-        <input type="email" class="form-control" id="emailInput" name="login" placeholder="email">
+        <input type="email" class="form-control" id="emailInput" name="email" placeholder="email">
         <label for="passwordInput">Email</label>
       </div>
       <div class="form-floating">
@@ -55,6 +55,10 @@
         <label for="passwordInput">Пароль</label>
       </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+      <errors path="login"></errors>
+      [[${emailError}]]
+      <errors path="pass"></errors>
+      [[${passError}]]
     </form>
   </main>
 

@@ -47,7 +47,8 @@
             width: 300px;
             height: 300px;
             right: 30px;
-            border-radius: 50%;
+            border-radius: 100px;
+            background-size: 300px;
           }
 
     </style>
@@ -64,7 +65,7 @@
 
     <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
         <h4 class="mb-3">Профиль</h4>
-        <form action="/docinfo" method="post">
+        <form action="/docEdit" method="post" modelAttribute="doctorForm">
             <div class="g-3">
                 <div class="col-sm-10">
                     <label for="last_Name" class="form-label">Фамилия*</label>
@@ -149,22 +150,24 @@
                 <hr class="my-4">
             </div>
 
+            <div class="main-container">
+                <div class="profile">
+                    <img src="https://cdn-icons-png.flaticon.com/512/194/194915.png">
+                </div>
+
+            </div>
+
+            <div class="load-container">
+                <input type="file" name="image" multiple accept="image/*,image/jpeg"></p>
+            </div>
+
         </form>
 
         <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
 
     </div>
 
-    <div class="main-container">
-        <div class="profile">
-            <img src="https://cdn-icons-png.flaticon.com/512/194/194915.png">
-        </div>
 
-    </div>
-
-    <div class="load-container">
-            <input type="file" name="photo" multiple accept="image/*,image/jpeg"></p>
-    </div>
 
 </body>
 </html>

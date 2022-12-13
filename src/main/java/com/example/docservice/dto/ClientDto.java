@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClientDto {
 
-    private long id;
-    private String spec;
-    private String doctor;
-    private String date;
-    private String time;
+    private String id;
+    private String email;
+    private String pass;
+    private String qualif;
+    private String firstname;
+    private String lastname;
+    private String middlename;
+    private String dateAppoitm;
+    private String timeAppoitm;
 
 }

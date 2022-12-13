@@ -12,16 +12,20 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "Client")
+@Table(name = "patientsappoitm")
 public class Client {
     @Id
-    private UUID id;
+    private String id;
 
     @Column(name = "email")
     private String email;
+    private String pass;
+    private String qualif;
+    private String firstname;
+    private String lastname;
+    private String middlename;
+    private String dateAppoitm;
+    private String timeAppoitm;
 
-    private String spec;
-    private String doctor;
-    private String date;
-    private String time;
+
 }
