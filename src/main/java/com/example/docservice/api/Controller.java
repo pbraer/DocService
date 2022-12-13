@@ -35,7 +35,7 @@ public class Controller implements Api {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile"); // указываю какую страницу вернуть
         modelAndView.getModel().put("doctorForm", new DoctorsDto());
-        modelAndView.getModel().put("doctor", docService.getDocById(id));
+        modelAndView.addObject("userId", id);
         return modelAndView;
     }
 
@@ -125,17 +125,7 @@ public class Controller implements Api {
 
 
     @PostMapping("/profile") // изменение профиля врача
-    public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
-        System.out.println(doctorsDto.getId());
-        System.out.println(doctorsDto.getEmail());
-        System.out.println(doctorsDto.getPass());
-        System.out.println(doctorsDto.getLastname());
-        System.out.println(doctorsDto.getFirstname());
-        System.out.println(doctorsDto.getMiddlename());
-        System.out.println(doctorsDto.getImage());
-        System.out.println(doctorsDto.getQualif());
-        System.out.println(doctorsDto.getMonday());
-        System.out.println(doctorsDto.getTimefrom());
+    public ModelAndView profile(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
 
         if(doctorsDto.getLastname().equals("")){
             model.getModel().put("lastnameError", "Заполните данные");

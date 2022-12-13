@@ -80,7 +80,7 @@ public class UserService {
 
     }
 
-    public void removeUserByEmail(Long id) {
+    public void removeUser(Long id) {
         userRepository.deleteById(id);
     }
 

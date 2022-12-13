@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ServicePage {
@@ -25,6 +24,7 @@ public class ServicePage {
         for (Doctor doctor : doctors) {
             DoctorsDto doctorsDto = new DoctorsDto();
             doctorsDto.setId(doctor.getId().toString());
+            doctorsDto.setUserid(doctor.getUserid());
             doctorsDto.setEmail(doctor.getEmail());
             doctorsDto.setPass(doctor.getPass());
             doctorsDto.setFirstname(doctor.getFirstname());
@@ -47,48 +47,53 @@ public class ServicePage {
         return resultList;
     }
 
-    public Doctor getDocById(String id) {
-        Doctor doctor = null;
+    public String findDoctorIdByUserId(String userid) {
+        String id = null;
         List<Doctor> doctors = doctorRepository.findAllDoctors();
         for (Doctor doc : doctors) {
-            if (doc.getId().equals(id)) {
-                doctor = doc;
+            if (doc.getUserid().equals(userid)) {
+                id = doc.getId();
             }
 
         }
 
-        return doctor;
+        return id;
     }
 
     public void createDoctor(DoctorsDto doctorsDto) {
         Doctor doctor = new Doctor();
-        doctor.setId(String.valueOf(doctorRepository.findAllDoctors().size() + 1));
-        doctor.setPass(doctor.getPass());
-        doctor.setEmail(doctor.getEmail());
-        doctor.setFirstname(doctor.getFirstname());
-        doctor.setLastname(doctor.getLastname());
-        doctor.setMiddlename(doctor.getMiddlename());
-        doctor.setQualif(doctor.getQualif());
-        doctor.setImage(doctor.getImage());
-        doctor.setMonday(doctor.getMonday());
-        doctor.setTuesday(doctor.getTuesday());
-        doctor.setWednesday(doctor.getMonday());
-        doctor.setThursday(doctor.getThursday());
-        doctor.setFriday(doctor.getFriday());
-        doctor.setSaturday(doctor.getSaturday());
-        doctor.setSunday(doctor.getSunday());
-        doctor.setTimefrom(doctor.getTimefrom());
-        doctor.setTimeto(doctor.getTimeto());
+        doctor.setId(doctorsDto.getId());
+        doctor.setUserid(doctorsDto.getUserid());
+        doctor.setPass(userService.getPassById(doctor.getId()));
+        doctor.setEmail(userService.getEmailById(doctor.getId()));
+        doctor.setFirstname(doctorsDto.getFirstname());
+        doctor.setLastname(doctorsDto.getLastname());
+        doctor.setMiddlename(doctorsDto.getMiddlename());
+        doctor.setQualif(doctorsDto.getQualif());
+        doctor.setImage(doctorsDto.getImage());
+        doctor.setMonday(doctorsDto.getMonday());
+        doctor.setTuesday(doctorsDto.getTuesday());
+        doctor.setWednesday(doctorsDto.getMonday());
+        doctor.setThursday(doctorsDto.getThursday());
+        doctor.setFriday(doctorsDto.getFriday());
+        doctor.setSaturday(doctorsDto.getSaturday());
+        doctor.setSunday(doctorsDto.getSunday());
+        doctor.setTimefrom(doctorsDto.getTimefrom());
+        doctor.setTimeto(doctorsDto.getTimeto());
         doctorRepository.save(doctor);
 
     }
 
-    public void removeDoctorById(String id) {
-        doctorRepository.deleteById(UUID.fromString(id));
-    }
-
     public void updateDoctorInfo(DoctorsDto doctorsDto){
-        removeDoctorById(doctorsDto.getId());
+        doctorsDto.setId(findDoctorIdByUserId(doctorsDto.getUserid()));
+        List<DoctorsDto> docList = getAllDoctors();
+        docList.removeIf(doc -> (doc.getId() == doctorsDto.getId()));
+        doctorRepository.deleteAll();
+        for (DoctorsDto doc : docList) {
+            createDoctor(doc);
+
+        }
+
         createDoctor(doctorsDto);
 
     }

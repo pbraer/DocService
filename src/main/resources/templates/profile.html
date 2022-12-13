@@ -67,8 +67,12 @@
 
     <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
         <h4 class="mb-3">Профиль</h4>
-        <form action="/docEdit" method="post" modelAttribute="doctorForm">
+        <form action="/profile" method="post" modelAttribute="doctorForm">
+
+            <input type="hidden" name="userid" th:value="${userId}">
+
             <div class="g-3">
+
                 <div class="col-sm-10">
                     <label for="last_Name" class="form-label">Фамилия*</label>
                     <input type="text" class="form-control" id="last_Name" name="lastname" required>
@@ -163,9 +167,9 @@
                 <input type="file" name="image" multiple accept="image/*,image/jpeg"></p>
             </div>
 
-        </form>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
 
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
+        </form>
 
     </div>
 
