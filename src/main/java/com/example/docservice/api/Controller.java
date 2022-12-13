@@ -124,7 +124,7 @@ public class Controller implements Api {
     }
 
 
-    @PostMapping("/docEdit") // изменение профиля врача
+    @PostMapping("/profile") // изменение профиля врача
     public ModelAndView login(@ModelAttribute("doctorForm") DoctorsDto doctorsDto, ModelAndView model){
         System.out.println(doctorsDto.getId());
         System.out.println(doctorsDto.getEmail());
@@ -135,8 +135,20 @@ public class Controller implements Api {
         System.out.println(doctorsDto.getImage());
         System.out.println(doctorsDto.getQualif());
         System.out.println(doctorsDto.getMonday());
-        System.out.println(doctorsDto.getTimefrom());
-        return model;
+        System.out.println(doctorsDto.getTimeFrom());
+
+        if(doctorsDto.getLastname().equals("")){
+            model.getModel().put("lastnameError", "Заполните данные");
+            return model;
+        }else if(doctorsDto.getFirstname().equals("")) {
+            model.getModel().put("firstnameError", "Заполните данные");
+            return model;
+        }else {
+            docService.updateDoctorInfo(doctorsDto);
+            model.clear();
+            model.setView(new RedirectView("/profile/"+ doctorsDto.getUserid()));
+            return model;
+        }
 
     }
 
