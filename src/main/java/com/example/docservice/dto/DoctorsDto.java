@@ -24,8 +24,8 @@ public class DoctorsDto {
     private Boolean friday = false;
     private Boolean saturday = false;
     private Boolean sunday = false;
-    private String timeFrom = null;
-    private String timeTo = null;
+    private String timefrom = null;
+    private String timeto = null;
     private String image = null;
 
 }

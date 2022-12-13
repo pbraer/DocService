@@ -36,8 +36,8 @@ public class ServicePage {
             doctorsDto.setFriday(doctor.getFriday());
             doctorsDto.setSaturday(doctor.getSaturday());
             doctorsDto.setSunday(doctor.getSunday());
-            doctorsDto.setTimeFrom(doctor.getTimeFrom());
-            doctorsDto.setTimeTo(doctor.getTimeTo());
+            doctorsDto.setTimefrom(doctor.getTimefrom());
+            doctorsDto.setTimeto(doctor.getTimeto());
             resultList.add(doctorsDto);
         }
 
@@ -74,8 +74,8 @@ public class ServicePage {
         doctor.setFriday(doctor.getFriday());
         doctor.setSaturday(doctor.getSaturday());
         doctor.setSunday(doctor.getSunday());
-        doctor.setTimeFrom(doctor.getTimeFrom());
-        doctor.setTimeTo(doctor.getTimeTo());
+        doctor.setTimefrom(doctor.getTimefrom());
+        doctor.setTimeto(doctor.getTimeto());
         doctorRepository.save(doctor);
 
     }

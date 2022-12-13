@@ -135,7 +135,7 @@ public class Controller implements Api {
         System.out.println(doctorsDto.getImage());
         System.out.println(doctorsDto.getQualif());
         System.out.println(doctorsDto.getMonday());
-        System.out.println(doctorsDto.getTimeFrom());
+        System.out.println(doctorsDto.getTimefrom());
         return model;
 
     }
