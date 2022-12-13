@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -28,6 +29,45 @@ public class UserService {
         }
 
         return resultList;
+    }
+
+    public String getId(Login login) {
+        String id = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getEmail().equals(login.getEmail())) {
+                id = user.getId();
+            }
+
+        }
+
+        return id;
+    }
+
+    public String getEmailById(String id) {
+        String email = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getId().equals(id)){
+                email = user.getEmail();
+            }
+
+        }
+
+        return email;
+    }
+
+    public String getPassById(String id) {
+        String pass = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getId().equals(id)){
+                pass = user.getPass();
+            }
+
+        }
+
+        return pass;
     }
 
     public void createUser(Login login) {
@@ -85,4 +125,5 @@ public class UserService {
         }
         return i;
     }
+
 }

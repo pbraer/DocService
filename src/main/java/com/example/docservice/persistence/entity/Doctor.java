@@ -6,7 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
+@SelectBeforeUpdate
+@DynamicUpdate
 @Getter
 @Setter
 @Entity
@@ -16,6 +20,8 @@ public class Doctor {
 
     @Id
     private String id; // ключ - уникальный id
+    private String userid;
+
     @Column(name = "email")
     private String email;
 

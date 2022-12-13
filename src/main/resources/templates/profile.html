@@ -63,13 +63,15 @@
         <hr>
     </div>
 
+
+
     <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
         <h4 class="mb-3">Профиль</h4>
         <form action="/docEdit" method="post" modelAttribute="doctorForm">
             <div class="g-3">
                 <div class="col-sm-10">
                     <label for="last_Name" class="form-label">Фамилия*</label>
-                    <input type="text" class="form-control" id="last_Name" name="lastname" required>
+                    <input type="text" class="form-control" id="last_Name" name="lastname" th:value="${doctor.lastname}" required>
                 </div>
 
                 <div class="col-sm-10">
