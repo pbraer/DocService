@@ -16,6 +16,9 @@ public class ServicePage {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired
+    private UserService userService;
+
     public List<DoctorsDto> getAllDoctors() {
         List<Doctor> doctors = doctorRepository.findAllDoctors();
         List<DoctorsDto> resultList = new ArrayList<>();
