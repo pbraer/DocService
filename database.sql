@@ -18,16 +18,16 @@ CREATE TABLE doctors (
                          lastname TEXT,
                          middlename TEXT,
                          qualif TEXT,
-                         image VARCHAR(1024) DEFAULT '/tmp/default.jpg',
-                         monday BOOLEAN,
-                         tuesday BOOLEAN,
-                         wednesday BOOLEAN,
-                         thursday BOOLEAN,
-                         friday BOOLEAN,
-                         saturday BOOLEAN,
-                         sunday BOOLEAN,
-                         timeFrom VARCHAR(5),
-                         timeTo VARCHAR(5)
+                         image TEXT,
+                         monday TEXT,
+                         tuesday TEXT,
+                         wednesday TEXT,
+                         thursday TEXT,
+                         friday TEXT,
+                         saturday TEXT,
+                         sunday TEXT,
+                         timefrom TEXT,
+                         timeto TEXT
 );
 
 CREATE TABLE patientsAppoitm (
@@ -59,7 +59,7 @@ VALUES
     ('12345','00000', '0@gmail.com','Инфекционист','Ivanov','12/12/2022','9:00'),
     ('12345','12312', 'm@gmail.com','Хирург','Ivanov','12/12/2022','9:00');
 
-INSERT INTO doctors(userid,pass,email,qualif,firstname,lastname,middlename,monday,tuesday,wednesday,thursday,friday,saturday,timeFrom,timeTo)
+INSERT INTO doctors(userid,pass,email,qualif,firstname,lastname,middlename,monday,tuesday,wednesday,thursday,friday,saturday,timefrom,timeto)
 VALUES
     ('6','11134', 'doc1@gmail.com','Гастроэнтеролог','Ivan','Ivanov','Ivanovich','1','1','0','1','1','1','9:00','18:00'),
     ('7','11134', 'doc2@gmail.com','Инфекционист','Petr','Petrov','Petrovich','1','1','1','1','1','0','10:00','20:00'),
