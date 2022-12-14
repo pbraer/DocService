@@ -67,7 +67,7 @@
 
     <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
         <h4 class="mb-3">Профиль</h4>
-        <form action="/profile" method="post" modelAttribute="doctorForm">
+        <form action="/profile" method="post" modelAttribute="doctorForm" enctype="multipart/form-data">
 
             <input type="hidden" name="userid" th:value="${userId}">
 
@@ -109,31 +109,31 @@
                 <h5 class="mb-3">Рабочие дни</h5>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="monday" name="monday" value="monday">
+                    <input class="form-check-input" type="checkbox" id="monday" name="monday" value="1">
                     <label class="form-check-label" for="monday">пн</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="tuesday" name="tuesday" value="tuesday" >
+                    <input class="form-check-input" type="checkbox" id="tuesday" name="tuesday" value="1" >
                     <label class="form-check-label" for="tuesday">вт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="wednesday" name="wednesday" value="wednesday">
+                    <input class="form-check-input" type="checkbox" id="wednesday" name="wednesday" value="1">
                     <label class="form-check-label" for="wednesday">ср</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="thursday" name="thursday" value="thursday" >
+                    <input class="form-check-input" type="checkbox" id="thursday" name="thursday" value="1" >
                     <label class="form-check-label" for="thursday">чт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="friday" name="friday" value="friday" >
+                    <input class="form-check-input" type="checkbox" id="friday" name="friday" value="1" >
                     <label class="form-check-label" for="friday">пт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="saturday" name="saturday" value="saturday" >
+                    <input class="form-check-input" type="checkbox" id="saturday" name="saturday" value="1" >
                     <label class="form-check-label" for="saturday">сб</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="sunday" name="sunday" value="sunday" >
+                    <input class="form-check-input" type="checkbox" id="sunday" name="sunday" value="1" >
                     <label class="form-check-label" for="sunday">вс</label>
                 </div>
 
