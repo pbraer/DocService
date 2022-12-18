@@ -37,12 +37,6 @@ public class Controller implements Api {
         modelAndView.setViewName("profile"); // указываю какую страницу вернуть
         modelAndView.getModel().put("doctorForm", new DoctorsDto());
         modelAndView.addObject("userId", id);
-        modelAndView.addObject("firstname", docService.findDoctorByUserId(id).getFirstname());
-        modelAndView.addObject("lastname", docService.findDoctorByUserId(id).getLastname());
-        modelAndView.addObject("middlename", docService.findDoctorByUserId(id).getMiddlename());
-        modelAndView.addObject("qualif", docService.findDoctorByUserId(id).getQualif());
-        modelAndView.addObject("timefrom", docService.findDoctorByUserId(id).getTimefrom());
-        modelAndView.addObject("timeto", docService.findDoctorByUserId(id).getTimeto());
         return modelAndView;
     }
 
