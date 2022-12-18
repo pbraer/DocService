@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, UUID>{
+public interface ClientRepository extends JpaRepository<Client, Long>{
     @Query(value = "SELECT * FROM patientsappoitm", nativeQuery = true)
     List<Client> findAllClients();
 }

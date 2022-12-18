@@ -26,12 +26,12 @@
 </head>
 <body>
 <div id="bar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style=" height: 1300px">
-    <a href="/registration" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a th:href="@{'/registration/{id}'(id=${userId})}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi pe-none me-2" width="35" height="32"></svg>
         <span class="fs-4">Записаться</span>
     </a>
     <hr>
-    <a href="/templates/static" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a th:href="@{'/schedule/{id}'(id=${userId})}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi pe-none me-2" width="35" height="32"></svg>
         <span class="fs-4">Расписание</span>
     </a>
@@ -40,10 +40,10 @@
 
 <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
     <h4 class="mb-3">Записаться к врачу</h4>
-    <form action="/clientReg" method="post">
+    <form action="/registration" method="post" modelAttribute="clientForm">
         <div class="col-md-5">
             <label for="spec" class="form-label">Специальность</label>
-            <select class="form-select" id="spec" name="spec" required>
+            <select class="form-select" id="spec" name="qualif" required>
                 <option value="">Выбрать...</option>
                 <option>Гастроэнтеролог</option>
                 <option>Дерматовенеролог</option>
@@ -56,15 +56,28 @@
             </select>
         </div>
 
-        <br>
+        <input type="hidden" name="userid" th:value="${userId}">
+
+        <errors path="qualif"></errors>
+        [[${qualifError}]]
 
         <div class="col-md-5">
             <label for="doctor" class="form-label">Врач</label>
             <select class="form-select" id="doctor" name="doctor" required>
                 <option value="">Выбрать...</option>
-                <option>Иванов А.А.</option>
+                <option>Moris M.</option>
+                <option>Ager A.</option>
+                <option>Krul K.</option>
+                <option>Brayan B. </option>
+                <option>Lucart L. </option>
+                <option>Иванов И. И.</option>
+                <option>Петров П. П.</option>
+                <option>Максимов М. М.</option>
             </select>
         </div>
+
+        <errors path="doctor"></errors>
+        [[${docError}]]
 
         <hr class="my-4">
 
@@ -72,18 +85,24 @@
 
             <div class="row gy-3">
                 <div class="col-md-6">
-                    <input type="date" id="choosedate" name="date" value="2022-12-03" min="2022-12-03" max="2022-12-31">
+                    <input type="date" id="choosedate" name="dateappoitm" value="2022-12-03" min="2022-12-03" max="2022-12-31">
                 </div>
             </div>
+
+        <errors path="dateappoitm"></errors>
+        [[${dateError}]]
 
             <hr class="my-4">
 
             <h5 class="mb-3">Время</h5>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="time" name="time" value="time">
-            <label class="form-check-label" for="time">9:00</label>
+            <input class="form-check-input" type="checkbox" name="timeappoitm" value="9:00">
+            <label class="form-check-label" >9:00</label>
         </div>
+
+        <errors path="timeappoitm"></errors>
+        [[${timeError}]]
 
             <hr class="my-4">
 

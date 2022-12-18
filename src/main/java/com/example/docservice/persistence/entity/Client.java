@@ -7,8 +7,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
 @Getter
 @Setter
@@ -17,15 +15,14 @@ public class Client {
     @Id
     private String id;
 
+    private String userid;
     @Column(name = "email")
     private String email;
     private String pass;
     private String qualif;
-    private String firstname;
-    private String lastname;
-    private String middlename;
-    private String dateAppoitm;
-    private String timeAppoitm;
+    private String doctor;
+    private String dateappoitm;
+    private String timeappoitm;
 
 
 }

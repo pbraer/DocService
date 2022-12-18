@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -23,11 +24,50 @@ public class UserService {
             login.setId(user.getId().toString());
             login.setEmail(user.getEmail().toString());
             login.setPass(user.getPass().toString());
-            login.setRoleof(user.getRoleof().toString());
+            login.setIsdoc(user.getIsdoc().toString());
             resultList.add(login);
         }
 
         return resultList;
+    }
+
+    public String getId(Login login) {
+        String id = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getEmail().equals(login.getEmail())) {
+                id = user.getId();
+            }
+
+        }
+
+        return id;
+    }
+
+    public String getEmailById(String id) {
+        String email = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getId().equals(id)){
+                email = user.getEmail();
+            }
+
+        }
+
+        return email;
+    }
+
+    public String getPassById(String id) {
+        String pass = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getId().equals(id)){
+                pass = user.getPass();
+            }
+
+        }
+
+        return pass;
     }
 
     public void createUser(Login login) {
@@ -35,12 +75,12 @@ public class UserService {
         user.setId(String.valueOf(userRepository.findAllUsers().size() + 1));
         user.setEmail(login.getEmail());
         user.setPass(login.getPass());
-        user.setRoleof("0");
+        user.setIsdoc("0");
         userRepository.save(user);
 
     }
 
-    public void removeUserByEmail(Long id) {
+    public void removeUser(Long id) {
         userRepository.deleteById(id);
     }
 
@@ -51,7 +91,7 @@ public class UserService {
         for (Login user : userList) {
             if (user.getEmail().equals(email) && user.getPass().equals(pass)){
 
-                if (user.getRoleof().equals("1")){
+                if (user.getIsdoc().equals("1")){
                     return("doc");
                 }else{
                     return("client");
@@ -85,4 +125,5 @@ public class UserService {
         }
         return i;
     }
+
 }

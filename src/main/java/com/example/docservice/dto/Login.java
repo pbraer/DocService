@@ -11,7 +11,7 @@ public class Login {
     private String id;
     private String email;
     private String pass;
-    private String roleof;
+    private String isdoc;
 
 
 }
