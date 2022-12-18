@@ -58,6 +58,15 @@ public class Controller implements Api {
         modelAndView.addObject("userId", id);
         return modelAndView;
     }
+
+    @Override
+    public ModelAndView documents(@PathVariable(value = "id") String id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("documents"); // указываю какую страницу вернуть
+        modelAndView.addObject("userId", id);
+        return modelAndView;
+    }
+
     @GetMapping("/")
     public RedirectView redirectToWelcomePage() {
         return new RedirectView("/sign");

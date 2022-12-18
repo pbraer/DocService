@@ -8,4 +8,6 @@ public class ApiUrls {
     public static final String REGISTRATION = "/registration/{id}";
     public static final String SCHEDULE = "/schedule/{id}";
 
+    public static final String DOCUMENTS = "/documents/{id}";
+
 }
