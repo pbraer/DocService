@@ -22,6 +22,9 @@ public class Controller implements Api {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private UploadService uploadService;
+
     @Override
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
