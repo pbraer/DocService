@@ -144,12 +144,12 @@
                 <div class="row gy-3">
                     <div class="col-md-6">
                         <label for="timeFrom" class="form-label">с*</label>
-                        <input type="time" class="form-control" id="timeFrom" name="timefrom" min="00:00" max="23:59" required>
+                        <input type="time" class="form-control" id="timeFrom" name="timefrom" min="00:00" max="23:59" th:value="${timefrom}" required>
                     </div>
 
                     <div class="col-md-6">
                         <label for="timeTo" class="form-label">по*</label>
-                        <input type="time" class="form-control" id="timeTo" name="timeto" min="00:00" max="23:59" required>
+                        <input type="time" class="form-control" id="timeTo" name="timeto" min="00:00" max="23:59" th:value="${timeto}" required>
                     </div>
                 </div>
 
