@@ -75,17 +75,17 @@
 
                 <div class="col-sm-10">
                     <label for="last_Name" class="form-label">Фамилия*</label>
-                    <input type="text" class="form-control" id="last_Name" name="lastname" required>
+                    <input type="text" class="form-control" id="last_Name" name="lastname" th:value="${lastname}" required>
                 </div>
 
                 <div class="col-sm-10">
                     <label for="first_Name" class="form-label">Имя*</label>
-                    <input type="text" class="form-control" id="first_Name" name="firstname" required>
+                    <input type="text" class="form-control" id="first_Name" name="firstname" th:value="${firstname}" required>
                 </div>
 
                 <div class="col-sm-10">
                     <label for="middle_Name" class="form-label">Отчество</label>
-                    <input type="text" class="form-control" id="middle_Name" name="middlename">
+                    <input type="text" class="form-control" id="middle_Name" name="middlename" th:value="${middlename}" >
                 </div>
 
                 <div class="col-md-5">

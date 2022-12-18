@@ -47,6 +47,19 @@ public class ServicePage {
         return resultList;
     }
 
+    public Doctor findDoctorByUserId(String userid) {
+        Doctor doctor = new Doctor();
+        List<Doctor> doctors = doctorRepository.findAllDoctors();
+        for (Doctor doc : doctors) {
+            if (doc.getUserid().equals(userid)) {
+                doctor = doc;
+            }
+
+        }
+
+        return doctor;
+    }
+
     public String findDoctorIdByUserId(String userid) {
         String id = null;
         List<Doctor> doctors = doctorRepository.findAllDoctors();
