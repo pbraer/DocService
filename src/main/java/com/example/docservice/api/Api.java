@@ -15,5 +15,7 @@ public interface Api {
 
     @GetMapping(value = ApiUrls.DOCUMENTS) ModelAndView schedule(@PathVariable(value = "id") String id);
 
+    @GetMapping(value = ApiUrls.DOCUMENTS) ModelAndView documents(@PathVariable(value = "id") String id);
+
 
 }
