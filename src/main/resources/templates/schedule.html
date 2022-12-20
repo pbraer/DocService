@@ -46,30 +46,21 @@
 <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
     <h4 class="mb-3">Расписание приемов</h4>
 
-    <div class="list-group mx-0 w-auto">
-        <label class="list-group-item d-flex gap-2">
-            <span>
-                12.02.2022
-                9:30
+    <tr th:each="record : ${records}">
+        <div class="list-group mx-0 w-auto">
+            <label class="list-group-item d-flex gap-2">
+                <div>
+                    <td><b th:text="${record.dateappoitm}"></b> <b th:text="${record.timeappoitm}"></b></td>
+                    <br>
+                    <td><span th:text="${record.doctor}"></span> (<span th:text="${record.qualif}"></span>)</td>
 
-        <small class="d-block text-muted">Иванов А.А. (терапевт)</small>
-      </span>
-        </label>
-    </div>
+                </div>
+            </label>
 
-    <br>
+        </div>
+        <br>
 
-    <div class="list-group mx-0 w-auto">
-        <label class="list-group-item d-flex gap-2">
-            <span>
-                14.02.2022
-                12:00
-
-        <small class="d-block text-muted">Евсеева О.Г. (невролог)</small>
-      </span>
-        </label>
-    </div>
-
+    </tr>
 
 </div>
 

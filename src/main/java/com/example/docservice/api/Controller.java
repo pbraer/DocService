@@ -57,7 +57,8 @@ public class Controller implements Api {
     public ModelAndView schedule(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("schedule"); // указываю какую страницу вернуть
-        modelAndView.addObject("records", new ClientDto()); // пропишем get list для записей id
+        //modelAndView.addObject("records", new ClientDto()); // пропишем get list для записей id
+        modelAndView.getModel().put("records", clientService.getRecordsById(id));
         modelAndView.addObject("userId", id);
         return modelAndView;
     }

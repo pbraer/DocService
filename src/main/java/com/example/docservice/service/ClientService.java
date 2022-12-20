@@ -38,6 +38,27 @@ public class ClientService {
         return resultList;
     }
 
+    public List<Client> getRecordsById(String id) {
+        List<Client> clients = clientRepository.findAllClients();
+        List<Client> resultList = new ArrayList<>();
+        for (Client client : clients) {
+            if (client.getUserid().equals(id)){
+                Client reg = new Client();
+                reg.setId(client.getId());
+                reg.setUserid(client.getUserid());
+                reg.setEmail(userService.getEmailById(client.getUserid()));
+                reg.setPass(userService.getPassById(client.getUserid()));
+                reg.setDoctor(client.getDoctor());
+                reg.setQualif(client.getQualif());
+                reg.setDateappoitm(client.getDateappoitm());
+                reg.setTimeappoitm(client.getTimeappoitm());
+                resultList.add(reg);
+            }
+        }
+
+        return resultList;
+    }
+
     public void createRecord(ClientDto clientDto) {
         Client client = new Client();
         client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
