@@ -13,9 +13,8 @@ public interface Api {
 
     @GetMapping(value = ApiUrls.SCHEDULE) ModelAndView schedule(@PathVariable(value = "id") String id);
 
-    @GetMapping(value = ApiUrls.DOCUMENTS) ModelAndView schedule(@PathVariable(value = "id") String id);
-
     @GetMapping(value = ApiUrls.DOCUMENTS) ModelAndView documents(@PathVariable(value = "id") String id);
 
+    @GetMapping(value = ApiUrls.PATIENTS) ModelAndView patients(@PathVariable(value = "id") String id);
 
 }

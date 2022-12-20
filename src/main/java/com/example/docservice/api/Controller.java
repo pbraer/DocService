@@ -8,8 +8,10 @@ import com.example.docservice.service.ServicePage;
 import com.example.docservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
 
 @RestController
 public class Controller implements Api {
@@ -64,6 +66,14 @@ public class Controller implements Api {
     public ModelAndView documents(@PathVariable(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("documents"); // указываю какую страницу вернуть
+        modelAndView.addObject("userId", id);
+        return modelAndView;
+    }
+
+    @Override
+    public ModelAndView patients(@PathVariable(value = "id") String id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("patients"); // указываю какую страницу вернуть
         modelAndView.addObject("userId", id);
         return modelAndView;
     }
@@ -128,6 +138,8 @@ public class Controller implements Api {
             return model;
         }
 
+
+
         model.setViewName("sign");
         return model;
 
@@ -153,7 +165,7 @@ public class Controller implements Api {
     }
 
     @PostMapping("/registration") // изменение профиля врача
-    public ModelAndView registration(@ModelAttribute("clientForm") ClientDto clientDto,  ModelAndView model){
+    public ModelAndView registration(@ModelAttribute("clientForm") ClientDto clientDto,  ModelAndView model) {
 
         if(clientDto.getQualif().equals("")){
             model.getModel().put("qualifError", "Заполните данные");
@@ -169,6 +181,8 @@ public class Controller implements Api {
             return model;
         }else {
             clientService.createRecord(clientDto);
+            //model.addObject(fileNames.toString());
+            //model.addAttribute(fileNames.toString());
             model.clear();
             model.setView(new RedirectView("/registration/"+ clientDto.getUserid()));
             return model;

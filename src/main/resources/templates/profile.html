@@ -56,9 +56,14 @@
 </head>
 <body>
     <div id="bar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style=" height: 1300px">
-        <a href="/profile" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a th:href="@{'/registration/{id}'(id=${userId})}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi pe-none me-2" width="35" height="32"></svg>
             <span class="fs-4">Профиль</span>
+        </a>
+        <hr>
+        <a th:href="@{'/patients/{id}'(id=${userId})}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg class="bi pe-none me-2" width="35" height="32"></svg>
+            <span class="fs-4">Пацинеты</span>
         </a>
         <hr>
     </div>
