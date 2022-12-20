@@ -4,6 +4,7 @@ import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.Login;
 import com.example.docservice.service.ClientService;
+import com.example.docservice.service.FileService;
 import com.example.docservice.service.ServicePage;
 import com.example.docservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class Controller implements Api {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private FileService fileService;
 
     @Override
     public ModelAndView sign() {
