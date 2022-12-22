@@ -40,18 +40,21 @@
             position: absolute;
             right: 140px;
             top: 100px;
+            width: 300px;
+            height: 300px;
         }
 
         img {
-            position: absolute;
+            object-fit: cover;
+            right: 30px;
             width: 300px;
             height: 300px;
-            right: 30px;
-            border-radius: 100px;
-            background-size: 300px;
+            border-radius: 150px;
           }
 
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -94,9 +97,9 @@
                 </div>
 
                 <div class="col-md-5">
-                    <label for="spec" class="form-label">Специальность</label>
-                    <select class="form-select" id="spec" name="qualif">
-                        <option value="">Выбрать...</option>
+                    <label for="qualif" class="form-label">Специальность</label>
+                    <select class="form-select" id="qualif" name="qualif">
+                        <option selected hidden>Выбрать...</option>
                         <option>Гастроэнтеролог</option>
                         <option>Дерматовенеролог</option>
                         <option>Инфекционист</option>
@@ -114,31 +117,31 @@
                 <h5 class="mb-3">Рабочие дни</h5>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="monday" name="monday" value="1">
+                    <input class="form-check-input" type="checkbox" id="monday" name="monday" th:checked="${monday == 'checked'}">
                     <label class="form-check-label" for="monday">пн</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="tuesday" name="tuesday" value="1" >
+                    <input class="form-check-input" type="checkbox" id="tuesday" name="tuesday" th:checked="${tuesday == 'checked'}" >
                     <label class="form-check-label" for="tuesday">вт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="wednesday" name="wednesday" value="1">
+                    <input class="form-check-input" type="checkbox" id="wednesday" name="wednesday" th:checked="${wednesday == 'checked'}">
                     <label class="form-check-label" for="wednesday">ср</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="thursday" name="thursday" value="1" >
+                    <input class="form-check-input" type="checkbox" id="thursday" name="thursday" th:checked="${thursday == 'checked'}" >
                     <label class="form-check-label" for="thursday">чт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="friday" name="friday" value="1" >
+                    <input class="form-check-input" type="checkbox" id="friday" name="friday" th:checked="${friday == 'checked'}" >
                     <label class="form-check-label" for="friday">пт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="saturday" name="saturday" value="1" >
+                    <input class="form-check-input" type="checkbox" id="saturday" name="saturday" th:checked="${saturday == 'checked'}" >
                     <label class="form-check-label" for="saturday">сб</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="sunday" name="sunday" value="1" >
+                    <input class="form-check-input" type="checkbox" id="sunday" name="sunday" th:checked="${sunday == 'checked'}" >
                     <label class="form-check-label" for="sunday">вс</label>
                 </div>
 
@@ -161,22 +164,44 @@
                 <hr class="my-4">
             </div>
 
-            <div class="main-container">
-                <div class="profile">
-                    <img src="https://cdn-icons-png.flaticon.com/512/194/194915.png">
-                </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
 
+            <div class="profile">
+                <img th:src="@{'/img/{image}'(image=${img})}" alt=" "/>
             </div>
 
             <div class="load-container">
-                <input type="file" name="image" multiple accept="image/*,image/jpeg"></p>
+                <input id="fileupload" type="file" name="image"/>
+                <button class = "btn btn-simple" id="upload-button" onclick="uploadFile()"> Обновить </button>
             </div>
+            <script>
+                async function uploadFile() {
+                    let formData = new FormData();
+                    formData.append("file", fileupload.files[0]);
+                    await fetch('/upload-image', {
+                        method: "POST",
+                        body: formData
+                    });
 
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
+                    let image = new FormData();
+                    formImgname.append("image", fileupload.files[0].name);
+                    formImgname.append("id", id.valueOf());
+                    await fetch('/add-image', {
+                        method: "POST",
+                        body: image
+                    });
+
+                    alert('Фотография обновлена');
+                }
+            </script>
+
 
         </form>
 
+
     </div>
+
+
 
 
 

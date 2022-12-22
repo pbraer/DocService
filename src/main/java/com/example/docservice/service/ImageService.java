@@ -10,8 +10,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 @Service
-public class FileService {
-    private final Path root = Paths.get("src/main/resources/saveFiles");
+public class ImageService {
+    private final Path root = Paths.get("src/main/resources/static/img");
 
 
     public void save(MultipartFile file) {

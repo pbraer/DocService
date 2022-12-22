@@ -16,3 +16,11 @@ spring:
 server:
   port: 8080
 
+app:
+  properties:
+    version: 1.0
+    name: TestApp
+
+  catalog:
+    c1: files
+    c2: images

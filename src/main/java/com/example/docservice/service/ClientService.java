@@ -73,25 +73,19 @@ public class ClientService {
 
     }
 
-    public List<ClientDto> getRecordsByEmail(String email) {
-        List<Client> clients = clientRepository.findAllClients();
-        List<ClientDto> resultList = new ArrayList<>();
-        for (Client client : clients) {
-            if (client.getEmail().equals(email)){
-                ClientDto clientDto = new ClientDto();
-                clientDto.setId(client.getId());
-                clientDto.setUserid(client.getUserid());
-                clientDto.setEmail(userService.getEmailById(client.getUserid()));
-                clientDto.setPass(userService.getPassById(client.getUserid()));
-                clientDto.setDoctor(client.getDoctor());
-                clientDto.setQualif(client.getQualif());
-                clientDto.setDateappoitm(client.getDateappoitm());
-                clientDto.setTimeappoitm(client.getTimeappoitm());
-                resultList.add(clientDto);
-            }
-        }
 
-        return resultList;
+    public void doc_records(ClientDto clientDto) {
+        Client client = new Client();
+        client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
+        client.setUserid(clientDto.getUserid());
+        client.setEmail(userService.getEmailById(client.getId()));
+        client.setPass(userService.getPassById(client.getId()));
+        client.setDoctor(clientDto.getDoctor());
+        client.setQualif(clientDto.getQualif());
+        client.setDateappoitm(clientDto.getDateappoitm());
+        client.setTimeappoitm(clientDto.getTimeappoitm());
+        clientRepository.save(client);
+
     }
 
 

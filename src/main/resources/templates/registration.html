@@ -23,6 +23,8 @@
 
     </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 </head>
 <body>
 <div id="bar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style=" height: 1300px">
@@ -47,17 +49,17 @@
     <h4 class="mb-3">Записаться к врачу</h4>
     <form action="/registration" method="post" modelAttribute="clientForm">
         <div class="col-md-5">
-            <label for="spec" class="form-label">Специальность</label>
-            <select class="form-select" id="spec" name="qualif" required>
-                <option value="">Выбрать...</option>
-                <option>Гастроэнтеролог</option>
-                <option>Дерматовенеролог</option>
-                <option>Инфекционист</option>
-                <option>Кардиолог</option>
-                <option>Невролог</option>
-                <option>Офтальмолог</option>
-                <option>Терапевт</option>
-                <option>Хирург</option>
+            <label for="qualif" class="form-label">Специальность</label>
+            <select class="form-select" id="qualif" name="qualif" required>
+                <option value="empty">Выбрать...</option>
+                <option value="Гастроэнтеролог">Гастроэнтеролог</option>
+                <option value="Дерматовенеролог">Дерматовенеролог</option>
+                <option value="Инфекционист">Инфекционист</option>
+                <option value="Кардиолог">Кардиолог</option>
+                <option value="Невролог">Невролог</option>
+                <option value="Офтальмолог">Офтальмолог</option>
+                <option value="Терапевт">Терапевт</option>
+                <option value="Хирург">Хирург</option>
             </select>
         </div>
 
@@ -66,20 +68,55 @@
         <errors path="qualif"></errors>
         [[${qualifError}]]
 
-        <div class="col-md-5">
-            <label for="doctor" class="form-label">Врач</label>
+        <div class="col-md-5" id="doctor_block" style="display: none">
+            <label for="qualif" class="form-label">Врач</label>
             <select class="form-select" id="doctor" name="doctor" required>
                 <option value="">Выбрать...</option>
-                <option>Moris M.</option>
-                <option>Ager A.</option>
-                <option>Krul K.</option>
-                <option>Brayan B. </option>
-                <option>Lucart L. </option>
-                <option>Иванов И. И.</option>
-                <option>Петров П. П.</option>
-                <option>Максимов М. М.</option>
+
             </select>
         </div>
+
+        <script>
+
+            $("#qualif").on("change",
+                function () {
+                    var value = this.value;
+                    console.log(value);
+                    if (value == 'empty') {
+                        $("#doctor_block").hide();
+                        clearOption($("#doctor"));
+
+                    }
+
+                    $.ajax({
+                        url: "/get-doc",
+                        method: 'GET',
+                        data: {
+                            spec: value
+                        },
+                        success: function (data) {
+                            if (data !== "") {
+                                var select = $("#doctor");
+                                clearOption(select);
+                                select.append('<option value="">Выбрать...</option>');
+                                for (let index = 0; index < data.length; index++) {
+                                    let elem = data[index];
+                                    let fio = elem.lastname + " " + elem.firstname + " " + elem.middlename;
+                                    select.append('<option value="' + elem.lastname + " " + elem.firstname[0] + "." + elem.middlename[0] + "." + '">' + fio + '</option>');
+                                }
+                                $("#doctor_block").show();
+                            } else {
+                                $("#doctor_block").hide();
+                                clearOption($("#doctor"));
+                            }
+                        }
+                    });
+                });
+
+            function clearOption(select) {
+                select.find("option").remove();
+            }
+        </script>
 
         <errors path="doctor"></errors>
         [[${docError}]]

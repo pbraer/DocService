@@ -2,16 +2,20 @@ package com.example.docservice.api;
 
 import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.DoctorsDto;
+import com.example.docservice.dto.ImageDto;
 import com.example.docservice.dto.Login;
 import com.example.docservice.service.ClientService;
-import com.example.docservice.service.FileService;
+import com.example.docservice.service.ImageService;
 import com.example.docservice.service.ServicePage;
 import com.example.docservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 
 @RestController
@@ -26,7 +30,7 @@ public class Controller implements Api {
     private ClientService clientService;
 
     @Autowired
-    private FileService fileService;
+    private ImageService imageService;
 
     @Override
     public ModelAndView sign() {
@@ -42,8 +46,52 @@ public class Controller implements Api {
         modelAndView.setViewName("profile"); // указываю какую страницу вернуть
         modelAndView.getModel().put("doctorForm", new DoctorsDto());
         modelAndView.addObject("userId", id);
+        modelAndView.addObject("firstname", docService.findDoctorByUserId(id).getFirstname());
+        modelAndView.addObject("lastname", docService.findDoctorByUserId(id).getLastname());
+        modelAndView.addObject("middlename", docService.findDoctorByUserId(id).getMiddlename());
+        modelAndView.addObject("qualif", docService.findDoctorByUserId(id).getQualif());
+        modelAndView.addObject("timefrom", docService.findDoctorByUserId(id).getTimefrom());
+        modelAndView.addObject("timeto", docService.findDoctorByUserId(id).getTimeto());
+        if(docService.findDoctorByUserId(id).getMonday() != null){
+            modelAndView.addObject("monday", "checked");
+        }else{
+            modelAndView.addObject("monday", "unchecked");
+        }
+        if(docService.findDoctorByUserId(id).getThursday() != null){
+            modelAndView.addObject("tuesday", "checked");
+        }else{
+            modelAndView.addObject("tuesday", "unchecked");
+        }
+        if(docService.findDoctorByUserId(id).getWednesday() != null){
+            modelAndView.addObject("wednesday", "checked");
+        }else{
+            modelAndView.addObject("wednesday", "unchecked");
+        }
+        if(docService.findDoctorByUserId(id).getThursday() != null){
+            modelAndView.addObject("thursday", "checked");
+        }else{
+            modelAndView.addObject("thursday", "unchecked");
+        }
+        if(docService.findDoctorByUserId(id).getFriday() != null){
+            modelAndView.addObject("friday", "checked");
+        }else{
+            modelAndView.addObject("friday", "unchecked");
+        }
+        if(docService.findDoctorByUserId(id).getSaturday() != null){
+            modelAndView.addObject("saturday", "checked");
+        }else{
+            modelAndView.addObject("saturday", "unchecked");
+        }
+        if(docService.findDoctorByUserId(id).getSunday() != null){
+            modelAndView.addObject("sunday", "checked");
+        }else{
+            modelAndView.addObject("sunday", "unchecked");
+        }
+        modelAndView.addObject("img", docService.findDoctorByUserId(id).getImage());
+
         return modelAndView;
     }
+
 
     @Override
     public ModelAndView registration(@PathVariable(value = "id") String id) {
@@ -51,8 +99,11 @@ public class Controller implements Api {
         modelAndView.setViewName("registration"); // указываю какую страницу вернуть
         modelAndView.getModel().put("clientForm", new ClientDto());
         modelAndView.addObject("userId", id);
+        modelAndView.addObject("docs", docService.getAllDoctors());
+        //System.out.println((String) modelAndView.getModel().get("qualif"));
+        //modelAndView.getModel().put("docs", docService.findOnequalifDoc((String) modelAndView.getModel().get("qualif")));
 
-        //modelAndView.getModel().put("client", clientService.getRecordsByEmail(userService.getEmailById(id)));
+        //modelAndView.getModel().put("client", clientService.getRecordsById(userService.getEmailById(id)));
         return modelAndView;
     }
 
@@ -80,6 +131,26 @@ public class Controller implements Api {
         modelAndView.setViewName("patients"); // указываю какую страницу вернуть
         modelAndView.addObject("userId", id);
         return modelAndView;
+    }
+
+    @GetMapping(value = "/get-doc")
+    @ResponseBody
+    public List<DoctorsDto> getListAccount(@RequestParam String spec) {
+        return docService.findOnequalifDoc(spec);
+    }
+
+    @PostMapping(value = "/upload-image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ImageDto uploadFile(MultipartFile file) {
+        imageService.save(file);
+        return null;
+    }
+
+    @PostMapping("/add-image")
+    public void uploadFile(String img, String id) {
+        System.out.println(img);
+        docService.updateDoctorImg(id, img);
     }
 
     @GetMapping("/")
@@ -142,8 +213,6 @@ public class Controller implements Api {
             return model;
         }
 
-
-
         model.setViewName("sign");
         return model;
 
@@ -185,8 +254,6 @@ public class Controller implements Api {
             return model;
         }else {
             clientService.createRecord(clientDto);
-            //model.addObject(fileNames.toString());
-            //model.addAttribute(fileNames.toString());
             model.clear();
             model.setView(new RedirectView("/registration/"+ clientDto.getUserid()));
             return model;

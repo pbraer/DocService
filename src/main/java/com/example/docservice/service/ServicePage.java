@@ -56,9 +56,34 @@ public class ServicePage {
             }
 
         }
+        System.out.println(doctor.getImage());
 
         return doctor;
     }
+
+    public List<DoctorsDto> findOnequalifDoc(String qualif) {
+        List<Doctor> doctors = doctorRepository.findAllDoctors();
+        List<DoctorsDto> resultList = new ArrayList<>();
+        for (Doctor doc : doctors) {
+            if (doc.getQualif().equals(qualif)){
+                DoctorsDto reg = new DoctorsDto();
+                reg.setId(doc.getId());
+                reg.setUserid(doc.getUserid());
+                reg.setEmail(userService.getEmailById(doc.getUserid()));
+                reg.setPass(userService.getPassById(doc.getUserid()));
+                reg.setLastname(doc.getLastname());
+                reg.setFirstname(doc.getFirstname());
+                reg.setFirstname(doc.getMiddlename());
+                reg.setQualif(doc.getQualif());
+                resultList.add(reg);
+                System.out.println(qualif);
+                System.out.println(reg.getQualif());
+            }
+        }
+
+        return resultList;
+    }
+
 
     public String findDoctorIdByUserId(String userid) {
         String id = null;
@@ -83,7 +108,9 @@ public class ServicePage {
         doctor.setLastname(doctorsDto.getLastname());
         doctor.setMiddlename(doctorsDto.getMiddlename());
         doctor.setQualif(doctorsDto.getQualif());
-        doctor.setImage(doctorsDto.getImage());
+        if (doctorsDto.getImage() != "" && doctorsDto.getImage() != "") {
+            doctor.setImage(doctorsDto.getImage());
+        }
         doctor.setMonday(doctorsDto.getMonday());
         doctor.setTuesday(doctorsDto.getTuesday());
         doctor.setWednesday(doctorsDto.getMonday());
@@ -109,6 +136,33 @@ public class ServicePage {
 
         createDoctor(doctorsDto);
 
+    }
+
+    public void updateDoctorImg(String id, String img){
+        if (img == "" || img == null) {
+            Doctor doctor = findDoctorByUserId(id);
+            doctor.setImage(img);
+            DoctorsDto doctorsDto = new DoctorsDto();
+            doctorsDto.setId(doctor.getId().toString());
+            doctorsDto.setUserid(doctor.getUserid());
+            doctorsDto.setEmail(doctor.getEmail());
+            doctorsDto.setPass(doctor.getPass());
+            doctorsDto.setFirstname(doctor.getFirstname());
+            doctorsDto.setLastname(doctor.getLastname());
+            doctorsDto.setMiddlename(doctor.getMiddlename());
+            doctorsDto.setQualif(doctor.getQualif());
+            doctorsDto.setImage(doctor.getImage());
+            doctorsDto.setMonday(doctor.getMonday());
+            doctorsDto.setTuesday(doctor.getTuesday());
+            doctorsDto.setWednesday(doctor.getWednesday());
+            doctorsDto.setThursday(doctor.getThursday());
+            doctorsDto.setFriday(doctor.getFriday());
+            doctorsDto.setSaturday(doctor.getSaturday());
+            doctorsDto.setSunday(doctor.getSunday());
+            doctorsDto.setTimefrom(doctor.getTimefrom());
+            doctorsDto.setTimeto(doctor.getTimeto());
+            updateDoctorInfo(doctorsDto);
+        }
     }
 
 
