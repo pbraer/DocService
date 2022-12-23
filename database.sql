@@ -41,14 +41,6 @@ CREATE TABLE patientsAppoitm (
                                  timeappoitm TEXT
 );
 
-CREATE TABLE images (
-                        id INT PRIMARY KEY AUTO_INCREMENT,
-                        title TEXT,
-                        uploaddate blob,
-                        extension TEXT,
-                        downloadlink TEXT
-);
-
 
 INSERT INTO patientsappoitm(userid,pass,email,qualif,doctor,dateappoitm,timeappoitm)
 VALUES
