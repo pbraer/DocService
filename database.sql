@@ -36,18 +36,19 @@ CREATE TABLE patientsAppoitm (
                                  email TEXT,
                                  qualif TEXT,
                                  doctor TEXT,
+                                 doctorid TEXT,
                                  dateappoitm TEXT,
                                  timeappoitm TEXT
 );
 
 
-INSERT INTO patientsappoitm(userid,pass,email,qualif,doctor,dateappoitm,timeappoitm)
+INSERT INTO patientsappoitm(userid,pass,email,qualif,doctorid,doctor,dateappoitm,timeappoitm)
 VALUES
-    ('11','12345', 'p@gmail.com','Гастроэнтеролог','1','12/12/2022','09:00'),
-    ('12','00000', 'o@gmail.com','Гастроэнтеролог','1','12/12/2022','17:00'),
-    ('11','12345', 'p@gmail.com','Инфекционист','3','12/12/2022','15:00'),
-    ('12','00000', '0@gmail.com','Невролог','3','12/12/2022','09:00'),
-    ('13','12312', 'm@gmail.com','Хирург','6','12/12/2022','09:00');
+    ('11','12345', 'p@gmail.com','Гастроэнтеролог','1','Петров И.И.','12/12/2022','09:00'),
+    ('12','00000', 'o@gmail.com','Гастроэнтеролог','1','Петров И.И.','12/12/2022','17:00'),
+    ('11','12345', 'p@gmail.com','Инфекционист','3','Иванова И.А.','12/12/2022','15:00'),
+    ('12','00000', '0@gmail.com','Невролог','3','Иванова И.А.','12/12/2022','09:00'),
+    ('13','12312', 'm@gmail.com','Хирург','6','Зуева Л.М.','12/12/2022','09:00');
 
 INSERT INTO doctors(userid,pass,email,qualif,firstname,lastname,middlename,monday,tuesday,wednesday,thursday,friday,saturday,timefrom,timeto)
 VALUES
