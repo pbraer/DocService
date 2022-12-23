@@ -44,6 +44,32 @@ public class UserService {
         return id;
     }
 
+    public String getEmailById(String id) {
+        String email = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getId().equals(id)){
+                email = user.getEmail();
+            }
+
+        }
+
+        return email;
+    }
+
+    public String getPassById(String id) {
+        String pass = null;
+        List<User> users = userRepository.findAllUsers();
+        for (User user : users) {
+            if (user.getId().equals(id)){
+                pass = user.getPass();
+            }
+
+        }
+
+        return pass;
+    }
+
     public void createUser(Login login) {
         User user = new User();
         user.setId(String.valueOf(userRepository.findAllUsers().size() + 1));
@@ -54,7 +80,7 @@ public class UserService {
 
     }
 
-    public void removeUserByEmail(Long id) {
+    public void removeUser(Long id) {
         userRepository.deleteById(id);
     }
 
@@ -99,4 +125,5 @@ public class UserService {
         }
         return i;
     }
+
 }

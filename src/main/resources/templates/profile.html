@@ -40,60 +40,86 @@
             position: absolute;
             right: 140px;
             top: 100px;
+            width: 300px;
+            height: 300px;
         }
 
         img {
-            position: absolute;
+            object-fit: cover;
+            right: 30px;
             width: 300px;
             height: 300px;
-            right: 30px;
-            border-radius: 100px;
-            background-size: 300px;
+            border-radius: 150px;
           }
 
+        .exit {
+            position:absolute;
+            bottom:20px;
+            left:30px;
+        }
+
+
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
 <body>
     <div id="bar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style=" height: 1300px">
-        <a href="/profile" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a th:href="@{'/registration/{id}'(id=${userId})}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi pe-none me-2" width="35" height="32"></svg>
             <span class="fs-4">Профиль</span>
         </a>
         <hr>
+        <a th:href="@{'/patients/{id}'(id=${userId})}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg class="bi pe-none me-2" width="35" height="32"></svg>
+            <span class="fs-4">Пацинеты</span>
+        </a>
+        <hr>
+        <a href="/sign" class="align-items-center text-white text-decoration-none exit">
+            <svg class="bi pe-none me-2" width="35" height="32"></svg>
+            <span class="fs-6">Выйти</span>
+        </a>
     </div>
+
+
+
 
     <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
         <h4 class="mb-3">Профиль</h4>
-        <form action="/docEdit" method="post" modelAttribute="doctorForm">
+        <form action="/profile" method="post" modelAttribute="doctorForm">
+
+            <input type="hidden" name="userid" th:value="${userId}">
+
             <div class="g-3">
+
                 <div class="col-sm-10">
                     <label for="last_Name" class="form-label">Фамилия*</label>
-                    <input type="text" class="form-control" id="last_Name" name="lastname" required>
+                    <input type="text" class="form-control" id="last_Name" name="lastname" th:value="${lastname}" required>
                 </div>
 
                 <div class="col-sm-10">
                     <label for="first_Name" class="form-label">Имя*</label>
-                    <input type="text" class="form-control" id="first_Name" name="firstname" required>
+                    <input type="text" class="form-control" id="first_Name" name="firstname" th:value="${firstname}" required>
                 </div>
 
                 <div class="col-sm-10">
                     <label for="middle_Name" class="form-label">Отчество</label>
-                    <input type="text" class="form-control" id="middle_Name" name="middlename">
+                    <input type="text" class="form-control" id="middle_Name" name="middlename" th:value="${middlename}" >
                 </div>
 
                 <div class="col-md-5">
-                    <label for="spec" class="form-label">Специальность</label>
-                    <select class="form-select" id="spec" name="qualif">
-                        <option value="">Выбрать...</option>
-                        <option>Гастроэнтеролог</option>
-                        <option>Дерматовенеролог</option>
-                        <option>Инфекционист</option>
-                        <option>Кардиолог</option>
-                        <option>Невролог</option>
-                        <option>Офтальмолог</option>
-                        <option>Терапевт</option>
-                        <option>Хирург</option>
+                    <label for="qualif" class="form-label">Специальность</label>
+                    <select class="form-select" id="qualif" name="qualif">
+                        <option th:selected="${qualif == '' || qualif == null}">Выбрать...</option>
+                        <option th:selected="${qualif == 'Гастроэнтеролог'}">Гастроэнтеролог</option>
+                        <option th:selected="${qualif == 'Дерматовенеролог'}">Дерматовенеролог</option>
+                        <option th:selected="${qualif == 'Инфекционист'}">Инфекционист</option>
+                        <option th:selected="${qualif == 'Кардиолог'}">Кардиолог</option>
+                        <option th:selected="${qualif == 'Невролог'}">Невролог</option>
+                        <option th:selected="${qualif == 'Офтальмолог'}">Офтальмолог</option>
+                        <option th:selected="${qualif == 'Терапевт'}">Терапевт</option>
+                        <option th:selected="${qualif == 'Хирург'}">Хирург</option>
 
                     </select>
                 </div>
@@ -103,31 +129,31 @@
                 <h5 class="mb-3">Рабочие дни</h5>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="monday" name="monday" value="monday">
+                    <input class="form-check-input" type="checkbox" id="monday" name="monday" th:checked="${monday == 'checked'}">
                     <label class="form-check-label" for="monday">пн</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="tuesday" name="tuesday" value="tuesday" >
+                    <input class="form-check-input" type="checkbox" id="tuesday" name="tuesday" th:checked="${tuesday == 'checked'}" >
                     <label class="form-check-label" for="tuesday">вт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="wednesday" name="wednesday" value="wednesday">
+                    <input class="form-check-input" type="checkbox" id="wednesday" name="wednesday" th:checked="${wednesday == 'checked'}">
                     <label class="form-check-label" for="wednesday">ср</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="thursday" name="thursday" value="thursday" >
+                    <input class="form-check-input" type="checkbox" id="thursday" name="thursday" th:checked="${thursday == 'checked'}" >
                     <label class="form-check-label" for="thursday">чт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="friday" name="friday" value="friday" >
+                    <input class="form-check-input" type="checkbox" id="friday" name="friday" th:checked="${friday == 'checked'}" >
                     <label class="form-check-label" for="friday">пт</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="saturday" name="saturday" value="saturday" >
+                    <input class="form-check-input" type="checkbox" id="saturday" name="saturday" th:checked="${saturday == 'checked'}" >
                     <label class="form-check-label" for="saturday">сб</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="sunday" name="sunday" value="sunday" >
+                    <input class="form-check-input" type="checkbox" id="sunday" name="sunday" th:checked="${sunday == 'checked'}" >
                     <label class="form-check-label" for="sunday">вс</label>
                 </div>
 
@@ -138,34 +164,56 @@
                 <div class="row gy-3">
                     <div class="col-md-6">
                         <label for="timeFrom" class="form-label">с*</label>
-                        <input type="time" class="form-control" id="timeFrom" name="timeFrom" min="00:00" max="23:59" required>
+                        <input type="time" class="form-control" id="timeFrom" name="timefrom" min="00:00" max="23:59" th:value="${timefrom}" required>
                     </div>
 
                     <div class="col-md-6">
                         <label for="timeTo" class="form-label">по*</label>
-                        <input type="time" class="form-control" id="timeTo" name="timeTo" min="00:00" max="23:59" required>
+                        <input type="time" class="form-control" id="timeTo" name="timeto" min="00:00" max="23:59" th:value="${timeto}" required>
                     </div>
                 </div>
 
                 <hr class="my-4">
             </div>
 
-            <div class="main-container">
-                <div class="profile">
-                    <img src="https://cdn-icons-png.flaticon.com/512/194/194915.png">
-                </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
 
+            <div class="profile">
+                <img th:src="@{'/img/{image}'(image=${img})}" alt=" "/>
             </div>
 
             <div class="load-container">
-                <input type="file" name="image" multiple accept="image/*,image/jpeg"></p>
+                <input id="fileupload" type="file" name="image"/>
+                <button class = "btn btn-simple" id="upload-button" onclick="uploadFile()"> Обновить </button>
             </div>
+            <script>
+                async function uploadFile() {
+                    let formData = new FormData();
+                    formData.append("file", fileupload.files[0]);
+                    await fetch('/upload-image', {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    let image = new FormData();
+                    formImgname.append("image", fileupload.files[0].name);
+                    formImgname.append("id", id.valueOf());
+                    await fetch('/add-image', {
+                        method: "POST",
+                        body: image
+                    });
+
+                    alert('Фотография обновлена');
+                }
+            </script>
+
 
         </form>
 
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
 
     </div>
+
+
 
 
 

@@ -10,21 +10,22 @@ import lombok.NoArgsConstructor;
 public class DoctorsDto {
 
     private String id;
+    private String userid;
     private String email;
     private String pass;
-    private String firstname = null;
-    private String lastname = null;
-    private String middlename = null;
-    private String qualif = null;
-    private Boolean monday = false;
-    private Boolean tuesday = false;
-    private Boolean wednesday = false;
-    private Boolean thursday = false;
-    private Boolean friday = false;
-    private Boolean saturday = false;
-    private Boolean sunday = false;
-    private String timeFrom = null;
-    private String timeTo = null;
-    private String image = null;
+    private String firstname;
+    private String lastname;
+    private String middlename;
+    private String qualif;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
+    private String saturday;
+    private String sunday;
+    private String timefrom;
+    private String timeto;
+    private String image;
 
 }

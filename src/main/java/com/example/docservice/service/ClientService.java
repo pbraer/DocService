@@ -8,65 +8,85 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ClientService {
+
     @Autowired
     private ClientRepository clientRepository;
 
-
-    public void createClient(ClientDto clientDto) {
-        Client client = new Client();
-        client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
-        client.setEmail(clientDto.getEmail());
-        client.setPass(clientDto.getPass());
-        client.setQualif(clientDto.getQualif());
-        client.setFirstname(clientDto.getFirstname());
-        client.setLastname(clientDto.getLastname());
-        client.setMiddlename(clientDto.getMiddlename());
-        client.setDateAppoitm(clientDto.getDateAppoitm());
-        client.setTimeAppoitm(clientDto.getTimeAppoitm());
-
-        clientRepository.save(client);
-    }
+    @Autowired
+    private UserService userService;
 
 
-/*    public void updateUser(Login login) {
-        Client client = new Client();
-        client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
-        client.setEmail(login.getEmail());
-        client.setPass(login.getPass());
-        client.setQualif(null);
-        client.setFirstname(null);
-        client.setLastname(null);
-        client.setMiddlename(null);
-        client.setDateAppoitm(null);
-        client.setTimeAppoitm(null);
-        clientRepository.save(client);
-    }*/
-
-
-
-    public List<ClientDto> getAllClient() {
+    public List<ClientDto> getAllRecords() {
         List<Client> clients = clientRepository.findAllClients();
         List<ClientDto> resultList = new ArrayList<>();
         for (Client client : clients) {
             ClientDto clientDto = new ClientDto();
-            clientDto.setId(client.getId().toString());
-            clientDto.setQualif(client.getQualif().toString());
-            clientDto.setFirstname(client.getFirstname().toString());
-            clientDto.setLastname(client.getLastname().toString());
-            clientDto.setMiddlename(client.getMiddlename().toString());
-            clientDto.setDateAppoitm(client.getDateAppoitm().toString());
-            clientDto.setTimeAppoitm(client.getTimeAppoitm().toString());
+            clientDto.setId(client.getId());
+            clientDto.setUserid(client.getUserid());
+            clientDto.setEmail(client.getEmail());
+            clientDto.setPass(client.getPass());
+            clientDto.setDoctor(client.getDoctor());
+            clientDto.setQualif(client.getQualif());
+            clientDto.setDateappoitm(client.getDateappoitm());
+            clientDto.setTimeappoitm(client.getTimeappoitm());
             resultList.add(clientDto);
         }
 
         return resultList;
     }
 
-    public void removeClientById(UUID id) {
-        clientRepository.deleteById(id);
+    public List<Client> getRecordsById(String id) {
+        List<Client> clients = clientRepository.findAllClients();
+        List<Client> resultList = new ArrayList<>();
+        for (Client client : clients) {
+            if (client.getUserid().equals(id)){
+                Client reg = new Client();
+                reg.setId(client.getId());
+                reg.setUserid(client.getUserid());
+                reg.setEmail(userService.getEmailById(client.getUserid()));
+                reg.setPass(userService.getPassById(client.getUserid()));
+                reg.setDoctor(client.getDoctor());
+                reg.setQualif(client.getQualif());
+                reg.setDateappoitm(client.getDateappoitm());
+                reg.setTimeappoitm(client.getTimeappoitm());
+                resultList.add(reg);
+            }
+        }
+
+        return resultList;
     }
+
+    public void createRecord(ClientDto clientDto) {
+        Client client = new Client();
+        client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
+        client.setUserid(clientDto.getUserid());
+        client.setEmail(userService.getEmailById(client.getId()));
+        client.setPass(userService.getPassById(client.getId()));
+        client.setDoctor(clientDto.getDoctor());
+        client.setQualif(clientDto.getQualif());
+        client.setDateappoitm(clientDto.getDateappoitm());
+        client.setTimeappoitm(clientDto.getTimeappoitm());
+        clientRepository.save(client);
+
+    }
+
+
+    public void doc_records(ClientDto clientDto) {
+        Client client = new Client();
+        client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
+        client.setUserid(clientDto.getUserid());
+        client.setEmail(userService.getEmailById(client.getId()));
+        client.setPass(userService.getPassById(client.getId()));
+        client.setDoctor(clientDto.getDoctor());
+        client.setQualif(clientDto.getQualif());
+        client.setDateappoitm(clientDto.getDateappoitm());
+        client.setTimeappoitm(clientDto.getTimeappoitm());
+        clientRepository.save(client);
+
+    }
+
+
 }
