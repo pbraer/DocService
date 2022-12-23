@@ -99,15 +99,15 @@
                 <div class="col-md-5">
                     <label for="qualif" class="form-label">Специальность</label>
                     <select class="form-select" id="qualif" name="qualif">
-                        <option selected hidden>Выбрать...</option>
-                        <option>Гастроэнтеролог</option>
-                        <option>Дерматовенеролог</option>
-                        <option>Инфекционист</option>
-                        <option>Кардиолог</option>
-                        <option>Невролог</option>
-                        <option>Офтальмолог</option>
-                        <option>Терапевт</option>
-                        <option>Хирург</option>
+                        <option th:selected="${qualif == '' || qualif == null}">Выбрать...</option>
+                        <option th:selected="${qualif == 'Гастроэнтеролог'}">Гастроэнтеролог</option>
+                        <option th:selected="${qualif == 'Дерматовенеролог'}">Дерматовенеролог</option>
+                        <option th:selected="${qualif == 'Инфекционист'}">Инфекционист</option>
+                        <option th:selected="${qualif == 'Кардиолог'}">Кардиолог</option>
+                        <option th:selected="${qualif == 'Невролог'}">Невролог</option>
+                        <option th:selected="${qualif == 'Офтальмолог'}">Офтальмолог</option>
+                        <option th:selected="${qualif == 'Терапевт'}">Терапевт</option>
+                        <option th:selected="${qualif == 'Хирург'}">Хирург</option>
 
                     </select>
                 </div>
