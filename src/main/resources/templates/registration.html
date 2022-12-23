@@ -111,8 +111,8 @@
                                 select.append('<option value="">Выбрать...</option>');
                                 for (let index = 0; index < data.length; index++) {
                                     let elem = data[index];
-                                    let fio = elem.lastname + " " + elem.firstname + " " + elem.middlename;
-                                    select.append('<option value="' + elem.lastname + " " + elem.firstname[0] + "." + elem.middlename[0] + "." + '">' + fio + '</option>');
+                                    let fio = elem.lastname + " " + elem.firstname[0] + "." + elem.middlename[0] + ".";
+                                    select.append('<option value="' + elem.email + '">' + fio + '</option>');
                                 }
                                 $("#doctor_block").show();
                             } else {

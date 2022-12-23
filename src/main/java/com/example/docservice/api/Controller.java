@@ -136,6 +136,7 @@ public class Controller implements Api {
     @GetMapping(value = "/get-doc")
     @ResponseBody
     public List<DoctorsDto> getListAccount(@RequestParam String spec) {
+
         return docService.findOnequalifDoc(spec);
     }
 
