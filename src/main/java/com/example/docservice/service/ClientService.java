@@ -68,8 +68,8 @@ public class ClientService {
         Client client = new Client();
         client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
         client.setUserid(clientDto.getUserid());
-        client.setEmail(userService.getEmailById(client.getId()));
-        client.setPass(userService.getPassById(client.getId()));
+        client.setEmail(userService.getEmailById(client.getUserid()));
+        client.setPass(userService.getPassById(client.getUserid()));
         client.setDoctorid(clientDto.getDoctorid());
         client.setDoctor(servicePage.getFioById(client.getDoctorid()));
         client.setQualif(clientDto.getQualif());
@@ -84,8 +84,8 @@ public class ClientService {
         Client client = new Client();
         client.setId(String.valueOf(clientRepository.findAllClients().size() + 1));
         client.setUserid(clientDto.getUserid());
-        client.setEmail(userService.getEmailById(client.getId()));
-        client.setPass(userService.getPassById(client.getId()));
+        client.setEmail(userService.getEmailById(client.getUserid()));
+        client.setPass(userService.getPassById(client.getUserid()));
         client.setDoctor(clientDto.getDoctor());
         client.setDoctorid(clientDto.getDoctorid());
         client.setQualif(clientDto.getQualif());
