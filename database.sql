@@ -29,7 +29,6 @@ CREATE TABLE doctors (
                          timefrom TEXT,
                          timeto TEXT
 );
-
 CREATE TABLE patientsAppoitm (
                                  id INT PRIMARY KEY AUTO_INCREMENT,
                                  userid TEXT,
