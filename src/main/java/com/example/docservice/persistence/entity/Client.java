@@ -20,8 +20,8 @@ public class Client {
     private String email;
     private String pass;
     private String qualif;
-    private String doctor;
     private String doctorid;
+    private String doctor;
     private String dateappoitm;
     private String timeappoitm;
 

@@ -4,10 +4,7 @@ import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.ImageDto;
 import com.example.docservice.dto.Login;
-import com.example.docservice.service.ClientService;
-import com.example.docservice.service.ImageService;
-import com.example.docservice.service.ServicePage;
-import com.example.docservice.service.UserService;
+import com.example.docservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -140,6 +139,19 @@ public class Controller implements Api {
         return docService.findOnequalifDoc(spec);
     }
 
+    @GetMapping(value = "/get-time")
+    @ResponseBody
+    public List<String> getListTime(@RequestParam String docdate,
+                                    @RequestParam String docid) throws ParseException, NonWorkdayEx {
+        try {
+            return docService.getDocFreetime(String.valueOf(docid), docdate);
+        }catch (NonWorkdayEx e) {
+            List<String> ex = new ArrayList<String>();
+            ex.add("Врач не работает в этот день!");
+            return ex;
+        }
+    }
+
     @PostMapping(value = "/upload-image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -151,7 +163,10 @@ public class Controller implements Api {
     @PostMapping("/add-image")
     public void uploadFile(String img, String id) {
         System.out.println(img);
-        docService.updateDoctorImg(id, img);
+        if (img != null) {
+            System.out.println("-");
+            docService.updateDoctorImg(id, img);
+        }
     }
 
     @GetMapping("/")

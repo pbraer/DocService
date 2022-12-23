@@ -1,13 +1,15 @@
 package com.example.docservice.service;
 
+import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.persistence.entity.Doctor;
 import com.example.docservice.persistence.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class ServicePage {
@@ -17,6 +19,9 @@ public class ServicePage {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ClientService clientService;
 
     public List<DoctorsDto> getAllDoctors() {
         List<Doctor> doctors = doctorRepository.findAllDoctors();
@@ -161,7 +166,68 @@ public class ServicePage {
             doctorsDto.setTimeto(doctor.getTimeto());
             updateDoctorInfo(doctorsDto);
         }
+
+
     }
+
+    public List<String> getDocFreetime(String id, String date) throws ParseException, NonWorkdayEx {
+
+        List<String> freetimes = new ArrayList<String>();
+
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("dd-MM-yyyy");
+        Date docDate= format.parse(date);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(docDate);
+        int week = cal.get(Calendar.DAY_OF_WEEK);
+        int time_from = Integer.parseInt(findDoctorByUserId(id).getTimefrom().substring(0, findDoctorByUserId(id).getTimefrom().indexOf(':')));
+        int time_to = Integer.parseInt(findDoctorByUserId(id).getTimeto().substring(0, findDoctorByUserId(id).getTimeto().indexOf(':')));
+
+        if (week == 1 && findDoctorByUserId(id).getSunday() != null ||
+                week == 2 && findDoctorByUserId(id).getMonday() != null ||
+                week == 3 && findDoctorByUserId(id).getTuesday() != null ||
+                week == 4 && findDoctorByUserId(id).getWednesday() != null ||
+                week == 5 && findDoctorByUserId(id).getThursday() != null ||
+                week == 6 && findDoctorByUserId(id).getFriday() != null ||
+                week == 7 && findDoctorByUserId(id).getSaturday() != null) {
+
+            List<ClientDto> clients = clientService.getAllRecords();
+
+            for (int i = time_from; i < time_to; i++){
+
+                String time = i + ":" + "00";
+
+                int count = 0;
+
+                for (ClientDto reg : clients) {
+                    System.out.println(reg.getDoctorid());
+                    System.out.println(reg.getTimeappoitm());
+                    System.out.println(reg.getDateappoitm());
+                    System.out.println("9595");
+                    if (Objects.equals(reg.getDoctorid(), id) &&
+                            Objects.equals(reg.getDateappoitm(), date) &&
+                            Objects.equals(reg.getTimeappoitm(), time)){
+                        count = 1;
+                    }
+                }
+
+                if (count == 0) {
+                    System.out.println("time");
+                    freetimes.add(time);
+                }
+
+            }
+
+        }else{
+            throw new NonWorkdayEx("Врач не работает в этот день!");
+        }
+
+        return freetimes;
+
+    }
+
+
 
     public String getFioById(String id) {
         String fio = null;
@@ -169,10 +235,14 @@ public class ServicePage {
         for (Doctor doc : doctors) {
             if (doc.getId().equals(id)){
                 fio = doc.getLastname() + " " + doc.getFirstname().charAt(0)+ "." + doc.getMiddlename().charAt(0) + ".";
+                return fio;
             }
         }
         return fio;
     }
+
+
+
 
 
 }

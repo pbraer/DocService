@@ -81,7 +81,7 @@
         <div class="col-md-5" id="doctor_block" style="display: none">
             <label for="qualif" class="form-label">Врач</label>
             <select class="form-select" id="doctor" name="doctorid" required>
-                <option value="">Выбрать...</option>
+                <option value="empty">Выбрать...</option>
 
             </select>
         </div>
@@ -108,11 +108,11 @@
                             if (data !== "") {
                                 var select = $("#doctor");
                                 clearOption(select);
-                                select.append('<option value="">Выбрать...</option>');
+                                select.append('<option value="empty">Выбрать...</option>');
                                 for (let index = 0; index < data.length; index++) {
                                     let elem = data[index];
                                     let fio = elem.lastname + " " + elem.firstname[0] + "." + elem.middlename[0] + ".";
-                                    select.append('<option value="' + elem.id + '">' + fio + '</option>');
+                                    select.append('<option value="' + elem.userid + '">' + fio + '</option>');
                                 }
                                 $("#doctor_block").show();
                             } else {
@@ -135,11 +135,14 @@
 
         <h5 class="mb-3">Дата</h5>
 
-            <div class="row gy-3">
-                <div class="col-md-6">
-                    <input type="date" id="choosedate" name="dateappoitm" value="2022-12-03" min="2022-12-03" max="2022-12-31">
-                </div>
+        <div id="date_block" class="row gy-3">
+            <div class="col-md-6">
+                <input type="date" id="choosedate" name="dateappoitm" value="2022-12-03" min="2022-12-03" max="2022-12-31">
             </div>
+        </div>
+
+
+
 
         <errors path="dateappoitm"></errors>
         [[${dateError}]]
@@ -148,10 +151,64 @@
 
             <h5 class="mb-3">Время</h5>
 
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="timeappoitm" value="9:00">
-            <label class="form-check-label" >9:00</label>
+        <div class="col-md-5" id="time_block" style="display: none">
+            <label for="choosedate" id="ex" class="form-label"></label>
+            <select class="form-select" id="time" name="timeappoitm" required>
+                <option value="">Выбрать...</option>
+
+            </select>
         </div>
+
+        <script>
+
+            $("#choosedate").on("change",
+                function () {
+                    var value = this.value;
+                    if (value == 'empty') {
+                        $("#time_block").hide();
+                        clearOption($("#time"));
+
+                    }
+
+                    $.ajax({
+                        url: "/get-time",
+                        method: 'GET',
+                        data: {
+                            docid: document.getElementById("doctor").value,
+                            docdate: value
+                        },
+                        success: function (data) {
+                            document.getElementById("ex").innerHTML = "";
+                            if (data !== "") {
+                                var select = $("#time");
+                                var ex = $("#ex");
+                                $("#time_block").hide();
+                                clearOption(select);
+                                for (let index = 0; index < data.length; index++) {
+                                    if (index === 0 && data[index] === "Врач не работает в этот день!") {
+                                        $("#time").hide();
+                                        clearOption($("#time"));
+                                        document.getElementById("ex").innerHTML = "Врач не работает в этот день!";
+                                    }else{
+                                        $("#time").show();
+                                        let elem = data[index];
+                                        select.append('<option value="' + elem + '">' + elem + '</option>');
+                                    }
+
+                                }
+                                $("#time_block").show();
+                            } else {
+                                $("#time_block").hide();
+                                clearOption($("#time"));
+                            }
+                        }
+                    });
+                });
+
+            function clearOption(select) {
+                select.find("option").remove();
+            }
+        </script>
 
         <errors path="timeappoitm"></errors>
         [[${timeError}]]
