@@ -44,13 +44,13 @@ CREATE TABLE patientsAppoitm (
 
 INSERT INTO patientsappoitm(userid,pass,email,qualif,doctorid,doctor,dateappoitm,timeappoitm)
 VALUES
-    ('11','12345', 'p@gmail.com','Гастроэнтеролог','1','Петров И.И.','12/12/2022','09:00'),
-    ('12','00000', 'o@gmail.com','Гастроэнтеролог','1','Петров И.И.','12/12/2022','17:00'),
-    ('11','12345', 'p@gmail.com','Инфекционист','3','Иванова И.А.','12/12/2022','15:00'),
-    ('12','00000', '0@gmail.com','Невролог','3','Иванова И.А.','12/12/2022','09:00'),
-    ('13','12312', 'm@gmail.com','Хирург','6','Зуева Л.М.','12/12/2022','09:00');
+    ('11','12345', 'p@gmail.com','Гастроэнтеролог','1','Петров И.И.','2022-12-12','09:00'),
+    ('12','00000', 'o@gmail.com','Гастроэнтеролог','1','Петров И.И.','2022-12-12','17:00'),
+    ('11','12345', 'p@gmail.com','Инфекционист','3','Иванова И.А.','2022-12-12','15:00'),
+    ('12','00000', '0@gmail.com','Невролог','3','Иванова И.А.','2022-12-12','09:00'),
+    ('13','12312', 'm@gmail.com','Хирург','6','Зуева Л.М.','2022-12-12','09:00');
 
-INSERT INTO doctors(userid,pass,email,qualif,firstname,lastname,middlename,monday,tuesday,wednesday,thursday,friday,saturday,timefrom,timeto)
+INSERT INTO doctors(userid,pass,email,qualif,lastname,firstname,middlename,monday,tuesday,wednesday,thursday,friday,saturday,timefrom,timeto)
 VALUES
     ('1','1234!M', 'petrovii@gmail.com','Гастроэнтеролог','Петров','Иван','Иванович','1','1','0','1','1','1','09:00','18:00'),
     ('2','1234!A', 'turchinovichma@gmail.com','Дераматовенеролог','Турчинович','Мария','Александровна','1','1','0','1','1','1','09:00','18:00'),

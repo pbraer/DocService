@@ -163,5 +163,16 @@ public class ServicePage {
         }
     }
 
+    public String getFioById(String id) {
+        String fio = null;
+        List<Doctor> doctors = doctorRepository.findAllDoctors();
+        for (Doctor doc : doctors) {
+            if (doc.getId().equals(id)){
+                fio = doc.getLastname() + " " + doc.getFirstname().charAt(0)+ "." + doc.getMiddlename().charAt(0) + ".";
+            }
+        }
+        return fio;
+    }
+
 
 }

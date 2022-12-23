@@ -244,7 +244,7 @@ public class Controller implements Api {
         if(clientDto.getQualif().equals("")){
             model.getModel().put("qualifError", "Заполните данные");
             return model;
-        }else if (clientDto.getDoctor().equals("")){
+        }else if (clientDto.getDoctorid().equals("")){
             model.getModel().put("docError", "Выберите специалиста");
             return model;
         }else if (clientDto.getTimeappoitm().equals("")){

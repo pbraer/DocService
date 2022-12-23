@@ -70,8 +70,8 @@ public class ClientService {
         client.setUserid(clientDto.getUserid());
         client.setEmail(userService.getEmailById(client.getId()));
         client.setPass(userService.getPassById(client.getId()));
-        client.setDoctor(clientDto.getDoctor());
         client.setDoctorid(clientDto.getDoctorid());
+        client.setDoctor(servicePage.getFioById(client.getDoctorid()));
         client.setQualif(clientDto.getQualif());
         client.setDateappoitm(clientDto.getDateappoitm());
         client.setTimeappoitm(clientDto.getTimeappoitm());
