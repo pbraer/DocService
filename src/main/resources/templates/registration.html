@@ -112,7 +112,7 @@
                                 for (let index = 0; index < data.length; index++) {
                                     let elem = data[index];
                                     let fio = elem.lastname + " " + elem.firstname[0] + "." + elem.middlename[0] + ".";
-                                    select.append('<option value="' + elem.email + '">' + fio + '</option>');
+                                    select.append('<option value="' + elem.id + '">' + fio + '</option>');
                                 }
                                 $("#doctor_block").show();
                             } else {

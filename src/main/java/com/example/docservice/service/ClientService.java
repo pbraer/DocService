@@ -18,6 +18,9 @@ public class ClientService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ServicePage servicePage;
+
 
     public List<ClientDto> getAllRecords() {
         List<Client> clients = clientRepository.findAllClients();
@@ -29,6 +32,7 @@ public class ClientService {
             clientDto.setEmail(client.getEmail());
             clientDto.setPass(client.getPass());
             clientDto.setDoctor(client.getDoctor());
+            clientDto.setDoctorid(client.getDoctorid());
             clientDto.setQualif(client.getQualif());
             clientDto.setDateappoitm(client.getDateappoitm());
             clientDto.setTimeappoitm(client.getTimeappoitm());
@@ -49,6 +53,7 @@ public class ClientService {
                 reg.setEmail(userService.getEmailById(client.getUserid()));
                 reg.setPass(userService.getPassById(client.getUserid()));
                 reg.setDoctor(client.getDoctor());
+                reg.setDoctorid(client.getDoctorid());
                 reg.setQualif(client.getQualif());
                 reg.setDateappoitm(client.getDateappoitm());
                 reg.setTimeappoitm(client.getTimeappoitm());
@@ -66,6 +71,7 @@ public class ClientService {
         client.setEmail(userService.getEmailById(client.getId()));
         client.setPass(userService.getPassById(client.getId()));
         client.setDoctor(clientDto.getDoctor());
+        client.setDoctorid(clientDto.getDoctorid());
         client.setQualif(clientDto.getQualif());
         client.setDateappoitm(clientDto.getDateappoitm());
         client.setTimeappoitm(clientDto.getTimeappoitm());
@@ -81,6 +87,7 @@ public class ClientService {
         client.setEmail(userService.getEmailById(client.getId()));
         client.setPass(userService.getPassById(client.getId()));
         client.setDoctor(clientDto.getDoctor());
+        client.setDoctorid(clientDto.getDoctorid());
         client.setQualif(clientDto.getQualif());
         client.setDateappoitm(clientDto.getDateappoitm());
         client.setTimeappoitm(clientDto.getTimeappoitm());

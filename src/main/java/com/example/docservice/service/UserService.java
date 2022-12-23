@@ -70,6 +70,7 @@ public class UserService {
         return pass;
     }
 
+
     public void createUser(Login login) {
         User user = new User();
         user.setId(String.valueOf(userRepository.findAllUsers().size() + 1));

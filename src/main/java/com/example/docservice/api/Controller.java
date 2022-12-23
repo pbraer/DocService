@@ -238,7 +238,7 @@ public class Controller implements Api {
 
     }
 
-/    @PostMapping("/registration")
+    @PostMapping("/registration")
     public ModelAndView registration(@ModelAttribute("clientForm") ClientDto clientDto,  ModelAndView model) {
 
         if(clientDto.getQualif().equals("")){
