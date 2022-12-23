@@ -73,11 +73,9 @@ public class ServicePage {
                 reg.setPass(userService.getPassById(doc.getUserid()));
                 reg.setLastname(doc.getLastname());
                 reg.setFirstname(doc.getFirstname());
-                reg.setFirstname(doc.getMiddlename());
+                reg.setMiddlename(doc.getMiddlename());
                 reg.setQualif(doc.getQualif());
                 resultList.add(reg);
-                System.out.println(qualif);
-                System.out.println(reg.getQualif());
             }
         }
 
