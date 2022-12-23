@@ -15,6 +15,7 @@ public class ClientDto {
     private String pass;
     private String qualif;
     private String doctor;
+    private String doctorid;
     private String dateappoitm;
     private String timeappoitm;
 
