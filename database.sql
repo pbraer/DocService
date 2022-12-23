@@ -40,7 +40,6 @@ CREATE TABLE patientsAppoitm (
                                  timeappoitm TEXT
 );
 
-
 INSERT INTO patientsappoitm(userid,pass,email,qualif,doctor,dateappoitm,timeappoitm)
 VALUES
     ('11','12345', 'p@gmail.com','Гастроэнтеролог','1','12/12/2022','09:00'),
