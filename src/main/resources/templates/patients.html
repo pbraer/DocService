@@ -88,6 +88,7 @@
   <errors path="patients"></errors>
   [[${noClientsErrors}]]
 <form action="/patients" method="post" modelAttribute="documentsForm">
+
   <tr th:each="patient : ${patients}">
     <div class="list-group mx-0 w-auto">
       <label class="list-group-item d-flex gap-2">
@@ -101,17 +102,11 @@
           </td>
           <br>
 
-          <div class="profile" id="file">
-            <img th:src="@{'/img/{id}'(id=${img})}" alt=" "/>
-          </div>
-
-          <div id="file_reload">
-            <input type="hidden" name="files" th:value="@{'/img/{file}'(file = ${file})}"/>
-          </div>
-
           <td>Последний приём: <span th:text="${patient.lastdate}"></span>  <span th:text="${patient.lasttime}"></span></td>
           <br>
           <td>Следующий приём: <span th:text="${patient.futuredate}"></span>  <span th:text="${patient.futuretime}"></span></td>
+
+
 
           <div >
             <br>
@@ -129,22 +124,17 @@
                       },
               );
 
-
-              let image = new FormData();
-              formImgname.append("doc", fileupload.files[0].name);
-              formImgname.append("docid", document.getElementById("docid"));
-              formImgname.append("client", document.getElementById("clientid"));
+              let file = new FormData();
+              file.append("doc", fileupload.files[0].name);
+              file.append("docid", document.getElementById("docid"));
+              file.append("client", document.getElementById("clientid"));
               if (image != null) {
                 await fetch('/add-file', {
                   method: "POST",
-                  body: image
+                  body: file
                 });
 
               }
-
-              document.getElementById('file').innerHTML = '<a th:href="@{/img/' + filename + '}"><button>Скачать файл <i class="fas fa-download"></i></button> </a>';
-
-
               alert('Документ успешно загружен');
             }
           </script>

@@ -215,7 +215,7 @@ public class ClientService {
         client.setId(String.valueOf(fileRepository.findAllFiles().size() + 1));
         client.setClientid(clientid);
         client.setDocid(docid);
-
+        System.out.println(document);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String today = LocalDate.now().format(formatter); // date -> string
         client.setDatemeet(today);
@@ -226,6 +226,32 @@ public class ClientService {
         client.setFilename(document);
         fileRepository.save(client);
 
+    }
+
+    public List<ClientFiles> findDocsByUserId(String docid) {
+        ClientFiles file = new ClientFiles();
+        List<ClientFiles> documents = new ArrayList<>();
+        List<ClientFiles> files = fileRepository.findAllFiles();
+        for (ClientFiles doc : files) {
+            if (doc.getDocid().equals(docid)) {
+                documents.add(doc);
+            }
+        }
+
+        return documents;
+    }
+
+    public List<ClientFiles> findDocsByClientId(String id) {
+        ClientFiles file = new ClientFiles();
+        List<ClientFiles> documents = new ArrayList<>();
+        List<ClientFiles> files = fileRepository.findAllFiles();
+        for (ClientFiles doc : files) {
+            if (doc.getClientid().equals(id)) {
+                documents.add(doc);
+            }
+        }
+
+        return documents;
     }
 
 

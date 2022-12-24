@@ -116,6 +116,7 @@ public class Controller implements Api {
         }else{
             modelAndView.getModel().put("noClientsError", "У Вас пока нет ни одного клиента");
         }
+        modelAndView.addObject("files", clientService.findDocsByUserId(id));
         modelAndView.addObject("userId", id);
         return modelAndView;
     }
@@ -125,6 +126,7 @@ public class Controller implements Api {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("documents"); // указываю какую страницу вернуть
         modelAndView.addObject("userId", id);
+        modelAndView.addObject("docs", clientService.findDocsByUserId(id));
         return modelAndView;
     }
 
@@ -180,12 +182,12 @@ public class Controller implements Api {
     @PostMapping(value = "/upload-file",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ImageDto uploadFiles(MultipartFile file) {
+    public DocDto uploadFiles(MultipartFile file) {
         if (file.getName() == null && file.getName() == ""){
             return null;
         }
         fileService.save(file);
-        return new ImageDto();
+        return new DocDto();
     }
 
     @PostMapping("/add-file")
@@ -291,13 +293,10 @@ public class Controller implements Api {
                 System.out.println("set prof " + filesDto.getFilename());
                 clientService.addDocument(filesDto.getDocid(), filesDto.getClientid(), filesDto.getFilename());
                 model.clear();
-                model.setView(new RedirectView("/patients/" + filesDto.getDocid()));
+                model.addObject("file", filesDto.getFilename());
                 return model;
             }catch(RuntimeException e){
-                model.getModel().put("fileExist", "Такой файл уже существует");
                 clientService.addDocument(filesDto.getDocid(), filesDto.getClientid(), filesDto.getFilename());
-                model.addObject("file", filesDto.getFilename());
-                model.setView(new RedirectView("/patients/" + filesDto.getDocid()));
                 return model;
 
             }
