@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Профиль</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     #bar {
       float: left ;
@@ -84,43 +85,70 @@
 <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
   <h4 class="mb-3">Пациенты</h4>
 
+  <errors path="patients"></errors>
+  [[${noClientsErrors}]]
+<form action="/patients" method="post" modelAttribute="documentsForm">
   <tr th:each="patient : ${patients}">
     <div class="list-group mx-0 w-auto">
       <label class="list-group-item d-flex gap-2">
         <div>
+          <input type="hidden" id="docid" th:value="${userId}">
+          <input type="hidden" id="clientid" th:value="${patient.id}">
+
+          <br>
+
           <td><b th:text="${patient.email}"></b>
-
-
           </td>
-          <div class="load-container">
+          <br>
+
+          <div class="profile" id="file">
+            <img th:src="@{'/img/{id}'(id=${img})}" alt=" "/>
+          </div>
+
+          <div id="file_reload">
+            <input type="hidden" name="files" th:value="@{'/img/{file}'(file = ${file})}"/>
+          </div>
+
+          <td>Последний приём: <span th:text="${patient.lastdate}"></span>  <span th:text="${patient.lasttime}"></span></td>
+          <br>
+          <td>Следующий приём: <span th:text="${patient.futuredate}"></span>  <span th:text="${patient.futuretime}"></span></td>
+
+          <div >
+            <br>
             <input id="fileupload" type="file" name="document"/>
-            <button class = "btn btn-simple" id="upload-button" onclick="uploadFile()"> Загрузить </button>
+            <button class = "btn btn-primary" id="upload-button" onclick="uploadFiles()"> Загрузить </button>
           </div>
           <script>
-            async function uploadFile() {
+            async function uploadFiles() {
+              let filename = fileupload.files[0].name
               let formData = new FormData();
               formData.append("file", fileupload.files[0]);
-              await fetch('/upload-file', {
-                method: "POST",
-                body: formData
-              });
+              await fetch('/upload-image', {
+                        method: "POST",
+                        body: formData
+                      },
+              );
+
 
               let image = new FormData();
-              formImgname.append("file", fileupload.files[0].name);
-              formImgname.append("id", id.valueOf());
-              await fetch('/add-file', {
-                method: "POST",
-                body: image
-              });
+              formImgname.append("doc", fileupload.files[0].name);
+              formImgname.append("docid", document.getElementById("docid"));
+              formImgname.append("client", document.getElementById("clientid"));
+              if (image != null) {
+                await fetch('/add-file', {
+                  method: "POST",
+                  body: image
+                });
+
+              }
+
+              document.getElementById('file').innerHTML = '<a th:href="@{/img/' + filename + '}"><button>Скачать файл <i class="fas fa-download"></i></button> </a>';
+
 
               alert('Документ успешно загружен');
             }
           </script>
           <br>
-          <br>
-          <td>Последний приём: <span th:text="${patient.lastdate}"></span>  <span th:text="${patient.lasttime}"></span></td>
-          <br>
-          <td>Следующий приём: <span th:text="${patient.futuredate}"></span>  <span th:text="${patient.futuretime}"></span></td>
 
         </div>
       </label>
@@ -128,8 +156,8 @@
     </div>
 
     <br>
-
   </tr>
+</form>
 
 
 </div>

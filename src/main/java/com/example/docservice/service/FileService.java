@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Service
 public class FileService {
-    private final Path root = Paths.get("src/main/resources/static/document");
+    private final Path root = Paths.get("src/main/resources/static/img");
 
 
     public void save(MultipartFile file) {

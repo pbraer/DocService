@@ -2,8 +2,10 @@ package com.example.docservice.service;
 
 import com.example.docservice.dto.ClientDto;
 import com.example.docservice.persistence.entity.Client;
+import com.example.docservice.persistence.entity.ClientFiles;
 import com.example.docservice.persistence.entity.Regs;
 import com.example.docservice.persistence.repository.ClientRepository;
+import com.example.docservice.persistence.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @Autowired
     private UserService userService;
@@ -45,6 +50,7 @@ public class ClientService {
         return resultList;
     }
 
+
     public List<Client> getRecordsById(String id) {
         List<Client> clients = clientRepository.findAllClients();
         List<Client> resultList = new ArrayList<>();
@@ -61,6 +67,31 @@ public class ClientService {
                 reg.setDateappoitm(client.getDateappoitm());
                 reg.setTimeappoitm(client.getTimeappoitm());
                 resultList.add(reg);
+            }
+        }
+
+        return resultList;
+    }
+
+    public List<Client> getRecordsByDocId(String id) {
+        List<Client> clients = clientRepository.findAllClients();
+        List<Client> resultList = new ArrayList<>();
+        for (Client client : clients) {
+            if (client.getDoctorid().equals(id)){
+                Client reg = new Client();
+                reg.setId(client.getId());
+                reg.setUserid(client.getUserid());
+                reg.setEmail(userService.getEmailById(client.getUserid()));
+                reg.setPass(userService.getPassById(client.getUserid()));
+                reg.setDoctor(client.getDoctor());
+                reg.setDoctorid(client.getDoctorid());
+                reg.setQualif(client.getQualif());
+                reg.setDateappoitm(client.getDateappoitm());
+                reg.setTimeappoitm(client.getTimeappoitm());
+                if (resultList.contains(reg) == false){
+                    resultList.add(reg);
+                }
+
             }
         }
 
@@ -111,9 +142,9 @@ public class ClientService {
         String lasttime = "";
         String futuretime = "";
         List<Regs> resultList = new ArrayList<>();
-        for (ClientDto person : getAllRecords()) {
+        for (Client person : getRecordsByDocId(docid)) {
             for (Client client : getRecordsById(person.getUserid())) {
-                LocalDate next = LocalDate.parse(today, formatter);
+                LocalDate next = LocalDate.parse(client.getDateappoitm(), formatter);
                 dates.add(next);
             }
             if (dates.size() > 0) {
@@ -147,13 +178,15 @@ public class ClientService {
                 futuredate = "";
             }
             Regs pers = new Regs();
-            pers.setId(person.getUserid());
+            pers.setUserid(person.getUserid());
             pers.setEmail(person.getEmail());
             pers.setFuturedate(futuredate);
             pers.setLastdate(lastdate);
             pers.setFuturetime(futuretime);
             pers.setLasttime(lasttime);
-            resultList.add(pers);
+            if (resultList.contains(pers) == false){
+                resultList.add(pers);
+            }
 
         }
 
@@ -174,6 +207,24 @@ public class ClientService {
         client.setDateappoitm(clientDto.getDateappoitm());
         client.setTimeappoitm(clientDto.getTimeappoitm());
         clientRepository.save(client);
+
+    }
+
+    public void addDocument(String clientid, String docid, String document) {
+        ClientFiles client = new ClientFiles();
+        client.setId(String.valueOf(fileRepository.findAllFiles().size() + 1));
+        client.setClientid(clientid);
+        client.setDocid(docid);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String today = LocalDate.now().format(formatter); // date -> string
+        client.setDatemeet(today);
+
+        client.setDoctor(servicePage.findDoctorByUserId(docid).getLastname() +
+                " " + servicePage.findDoctorByUserId(docid).getFirstname().charAt(0)
+                + "." + servicePage.findDoctorByUserId(docid).getMiddlename().charAt(0) + ".");
+        client.setFilename(document);
+        fileRepository.save(client);
 
     }
 

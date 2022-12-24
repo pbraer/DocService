@@ -1,10 +1,6 @@
 package com.example.docservice.api;
 
-import com.example.docservice.dto.ClientDto;
-import com.example.docservice.dto.DoctorsDto;
-import com.example.docservice.dto.ImageDto;
-import com.example.docservice.dto.Login;
-import com.example.docservice.persistence.entity.Avatar;
+import com.example.docservice.dto.*;
 import com.example.docservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,6 +28,9 @@ public class Controller implements Api {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private FileService fileService;
+
     @Override
     public ModelAndView sign() {
         ModelAndView modelAndView = new ModelAndView();
@@ -57,7 +56,7 @@ public class Controller implements Api {
         }else{
             modelAndView.addObject("monday", "unchecked");
         }
-        if(docService.findDoctorByUserId(id).getThursday() != null){
+        if(docService.findDoctorByUserId(id).getTuesday() != null){
             modelAndView.addObject("tuesday", "checked");
         }else{
             modelAndView.addObject("tuesday", "unchecked");
@@ -88,7 +87,6 @@ public class Controller implements Api {
             modelAndView.addObject("sunday", "unchecked");
         }
         modelAndView.addObject("img", docService.findDoctorByUserId(id).getImage());
-        System.out.println(docService.findDoctorByUserId(id).getImage());
 
         return modelAndView;
     }
@@ -113,7 +111,11 @@ public class Controller implements Api {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("schedule"); // указываю какую страницу вернуть
         //modelAndView.addObject("records", new ClientDto()); // пропишем get list для записей id
-        modelAndView.getModel().put("records", clientService.getRecordsById(id));
+        if (clientService.getRecordsById(id).size() != 0) {
+            modelAndView.getModel().put("records", clientService.getRecordsById(id));
+        }else{
+            modelAndView.getModel().put("noClientsError", "У Вас пока нет ни одного клиента");
+        }
         modelAndView.addObject("userId", id);
         return modelAndView;
     }
@@ -158,40 +160,39 @@ public class Controller implements Api {
     @PostMapping(value = "/upload-image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ImageDto uploadFile(MultipartFile file) {
+    public FilesDto uploadFile(MultipartFile file) {
         if (file.getName() == null && file.getName() == ""){
             return null;
         }
         imageService.save(file);
-        return new ImageDto();
+        return new FilesDto();
     }
 
     @PostMapping("/add-image")
     public void uploadFile(String img, String id) {
         System.out.println(img);
         if (img != null && img != "") {
-            Avatar avatar = new Avatar();
-            avatar.setId(id);
-            avatar.setEmail(userService.getEmailById(id));
-            avatar.setImage(img);
-            System.out.println("cltkfkb" + img);
             docService.updateDoctorImg(id, img);
         }
     }
+
 
     @PostMapping(value = "/upload-file",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ImageDto uploadFiles(MultipartFile file) {
-        System.out.println("PFJSJKSSKF");
-        imageService.save(file);
-        return null;
+        if (file.getName() == null && file.getName() == ""){
+            return null;
+        }
+        fileService.save(file);
+        return new ImageDto();
     }
 
     @PostMapping("/add-file")
-    public void uploadFiles(String img, String id) {
-        System.out.println("tut" + img);
-        docService.updateDoctorImg(id, img);
+    public void uploadFiles(String docid, String client, String doc) {
+        if (doc != null && doc != "") {
+            clientService.addDocument(client, docid, doc);
+        }
     }
 
     @GetMapping("/")
@@ -276,6 +277,30 @@ public class Controller implements Api {
             model.clear();
             model.setView(new RedirectView("/profile/"+ doctorsDto.getUserid()));
             return model;
+        }
+
+    }
+
+    @PostMapping("/patients") // изменение профиля врача
+    public ModelAndView profile(@ModelAttribute("patientsForm") FilesDto filesDto, ModelAndView model) throws Exception {
+
+        if(filesDto.getFilename() == null){
+            return model;
+        }else {
+            try {
+                System.out.println("set prof " + filesDto.getFilename());
+                clientService.addDocument(filesDto.getDocid(), filesDto.getClientid(), filesDto.getFilename());
+                model.clear();
+                model.setView(new RedirectView("/patients/" + filesDto.getDocid()));
+                return model;
+            }catch(RuntimeException e){
+                model.getModel().put("fileExist", "Такой файл уже существует");
+                clientService.addDocument(filesDto.getDocid(), filesDto.getClientid(), filesDto.getFilename());
+                model.addObject("file", filesDto.getFilename());
+                model.setView(new RedirectView("/patients/" + filesDto.getDocid()));
+                return model;
+
+            }
         }
 
     }
