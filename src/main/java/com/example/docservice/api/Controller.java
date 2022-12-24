@@ -4,6 +4,7 @@ import com.example.docservice.dto.ClientDto;
 import com.example.docservice.dto.DoctorsDto;
 import com.example.docservice.dto.ImageDto;
 import com.example.docservice.dto.Login;
+import com.example.docservice.persistence.entity.Avatar;
 import com.example.docservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -87,6 +88,7 @@ public class Controller implements Api {
             modelAndView.addObject("sunday", "unchecked");
         }
         modelAndView.addObject("img", docService.findDoctorByUserId(id).getImage());
+        System.out.println(docService.findDoctorByUserId(id).getImage());
 
         return modelAndView;
     }
@@ -129,6 +131,7 @@ public class Controller implements Api {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("patients"); // указываю какую страницу вернуть
         modelAndView.addObject("userId", id);
+        modelAndView.getModel().put("patients", clientService.getNearestDatas(id));
         return modelAndView;
     }
 
@@ -156,17 +159,39 @@ public class Controller implements Api {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ImageDto uploadFile(MultipartFile file) {
+        if (file.getName() == null && file.getName() == ""){
+            return null;
+        }
         imageService.save(file);
-        return null;
+        return new ImageDto();
     }
 
     @PostMapping("/add-image")
     public void uploadFile(String img, String id) {
         System.out.println(img);
-        if (img != null) {
-            System.out.println("-");
+        if (img != null && img != "") {
+            Avatar avatar = new Avatar();
+            avatar.setId(id);
+            avatar.setEmail(userService.getEmailById(id));
+            avatar.setImage(img);
+            System.out.println("cltkfkb" + img);
             docService.updateDoctorImg(id, img);
         }
+    }
+
+    @PostMapping(value = "/upload-file",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ImageDto uploadFiles(MultipartFile file) {
+        System.out.println("PFJSJKSSKF");
+        imageService.save(file);
+        return null;
+    }
+
+    @PostMapping("/add-file")
+    public void uploadFiles(String img, String id) {
+        System.out.println("tut" + img);
+        docService.updateDoctorImg(id, img);
     }
 
     @GetMapping("/")
@@ -245,6 +270,8 @@ public class Controller implements Api {
             model.getModel().put("firstnameError", "Заполните данные");
             return model;
         }else {
+            String img = docService.findDoctorByUserId(doctorsDto.getUserid()).getImage();
+            System.out.println("set prof " + img);;
             docService.updateDoctorInfo(doctorsDto);
             model.clear();
             model.setView(new RedirectView("/profile/"+ doctorsDto.getUserid()));

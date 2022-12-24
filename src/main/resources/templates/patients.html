@@ -84,6 +84,53 @@
 <div id="page" class="d-flex flex-column flex-shrink-0 col-md-7 col-lg-8">
   <h4 class="mb-3">Пациенты</h4>
 
+  <tr th:each="patient : ${patients}">
+    <div class="list-group mx-0 w-auto">
+      <label class="list-group-item d-flex gap-2">
+        <div>
+          <td><b th:text="${patient.email}"></b>
+
+
+          </td>
+          <div class="load-container">
+            <input id="fileupload" type="file" name="document"/>
+            <button class = "btn btn-simple" id="upload-button" onclick="uploadFile()"> Загрузить </button>
+          </div>
+          <script>
+            async function uploadFile() {
+              let formData = new FormData();
+              formData.append("file", fileupload.files[0]);
+              await fetch('/upload-file', {
+                method: "POST",
+                body: formData
+              });
+
+              let image = new FormData();
+              formImgname.append("file", fileupload.files[0].name);
+              formImgname.append("id", id.valueOf());
+              await fetch('/add-file', {
+                method: "POST",
+                body: image
+              });
+
+              alert('Документ успешно загружен');
+            }
+          </script>
+          <br>
+          <br>
+          <td>Последний приём: <span th:text="${patient.lastdate}"></span>  <span th:text="${patient.lasttime}"></span></td>
+          <br>
+          <td>Следующий приём: <span th:text="${patient.futuredate}"></span>  <span th:text="${patient.futuretime}"></span></td>
+
+        </div>
+      </label>
+
+    </div>
+
+    <br>
+
+  </tr>
+
 
 </div>
 

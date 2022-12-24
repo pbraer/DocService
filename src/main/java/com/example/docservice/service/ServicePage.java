@@ -61,7 +61,6 @@ public class ServicePage {
             }
 
         }
-        System.out.println(doctor.getImage());
 
         return doctor;
     }
@@ -111,7 +110,7 @@ public class ServicePage {
         doctor.setLastname(doctorsDto.getLastname());
         doctor.setMiddlename(doctorsDto.getMiddlename());
         doctor.setQualif(doctorsDto.getQualif());
-        if (doctorsDto.getImage() != "" && doctorsDto.getImage() != "") {
+        if (doctorsDto.getImage() != null && doctorsDto.getImage() != "") {
             doctor.setImage(doctorsDto.getImage());
         }
         doctor.setMonday(doctorsDto.getMonday());
@@ -142,7 +141,7 @@ public class ServicePage {
     }
 
     public void updateDoctorImg(String id, String img){
-        if (img == "" || img == null) {
+        if (img != null && img != null) {
             Doctor doctor = findDoctorByUserId(id);
             doctor.setImage(img);
             DoctorsDto doctorsDto = new DoctorsDto();
@@ -201,10 +200,6 @@ public class ServicePage {
                 int count = 0;
 
                 for (ClientDto reg : clients) {
-                    System.out.println(reg.getDoctorid());
-                    System.out.println(reg.getTimeappoitm());
-                    System.out.println(reg.getDateappoitm());
-                    System.out.println("9595");
                     if (Objects.equals(reg.getDoctorid(), id) &&
                             Objects.equals(reg.getDateappoitm(), date) &&
                             Objects.equals(reg.getTimeappoitm(), time)){
@@ -213,7 +208,6 @@ public class ServicePage {
                 }
 
                 if (count == 0) {
-                    System.out.println("time");
                     freetimes.add(time);
                 }
 

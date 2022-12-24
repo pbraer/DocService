@@ -176,36 +176,49 @@
                 <hr class="my-4">
             </div>
 
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
-
-            <div class="profile">
-                <img th:src="@{'/img/{image}'(image=${img})}" alt=" "/>
+            <div class="profile" id="img">
+                <img th:src="@{'/img/{id}'(id=${img})}" alt=" "/>
             </div>
 
-            <div class="load-container">
-                <input id="fileupload" type="file" name="image"/>
+            <div class="profile" id="img_reload">
+                <input type="hidden" name="image" th:value="${img}"/>
+            </div>
+
+            <div class="load-container" id="files">
+                <input  id="fileupload" type="file"/>
                 <button class = "btn btn-simple" id="upload-button" onclick="uploadFile()"> Обновить </button>
             </div>
             <script>
                 async function uploadFile() {
+                    let filename = fileupload.files[0].name
                     let formData = new FormData();
                     formData.append("file", fileupload.files[0]);
                     await fetch('/upload-image', {
                         method: "POST",
                         body: formData
-                    });
+                    },
+                    document.getElementById('img_reload').innerHTML = '<img th:src="@{/img/' + filename + '}" alt=" "/>',
+                    document.getElementById('img').innerHTML = '<input type="hidden" name="image" value="' + filename + '"/>',
+
+                    );
+
 
                     let image = new FormData();
                     formImgname.append("image", fileupload.files[0].name);
                     formImgname.append("id", id.valueOf());
-                    await fetch('/add-image', {
-                        method: "POST",
-                        body: image
-                    });
+                    if (image != null) {
+                        await fetch('/add-image', {
+                            method: "POST",
+                            body: image
+                        });
+
+                    }
 
                     alert('Фотография обновлена');
                 }
             </script>
+
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
 
 
         </form>
